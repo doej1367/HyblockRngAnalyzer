@@ -1,1 +1,1 @@
-# HyblockRngAnalyser
+# HyblockRngAnalyzer
