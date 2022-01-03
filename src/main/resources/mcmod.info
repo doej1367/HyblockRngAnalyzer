@@ -1,0 +1,16 @@
+[
+{
+  "modid": "hyblockrnganalyzer",
+  "name": "Hyblock RNG Analyzer",
+  "description": "A data collector mod on all things Hypixel Skyblock with the goal to figure out as many drop chances as possible",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["doej1367"],
+  "credits": "The Forge and FML guys, for making an example mod",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
