@@ -6,7 +6,8 @@ with the goal to figure out as many drop chances as possible for the wiki.
 
 ## Features
 
-- get the treasure and loot chest contents and write them to a file in the config folder
+- get the Treasure and Loot Chest contents and write them to a file in the config folder
+- get the Crystal Nucleus Loot contents and write them to a file in the config folder
 
 ## Requrements (to run)
 
