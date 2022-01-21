@@ -22,6 +22,6 @@ public class TreasureChestEventHandler {
 		StringBuilder sb = new StringBuilder();
 		for (Entry e : event.getChestContentsSummary().entrySet())
 			sb.append("," + e.getKey() + ":" + e.getValue());
-		main.addDataset(chestName + sb.toString() + "\n");
+		main.addDataset(chestName + sb.toString() + "\n", 0);
 	}
 }

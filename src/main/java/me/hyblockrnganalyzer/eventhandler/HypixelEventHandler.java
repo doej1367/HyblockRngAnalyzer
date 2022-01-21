@@ -1,6 +1,7 @@
 package me.hyblockrnganalyzer.eventhandler;
 
 import me.hyblockrnganalyzer.Main;
+import me.hyblockrnganalyzer.event.NucleusLootEvent;
 import me.hyblockrnganalyzer.event.OpenCustomChestEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiChest;
@@ -23,8 +24,25 @@ public class HypixelEventHandler {
 
 	@SubscribeEvent
 	public void onChatMessageReceived(ClientChatReceivedEvent event) {
-		// String name = Byte.toString(event.type);
-		// String text = event.message.getFormattedText();
+		// 0 = chat, 2 = overHotbar
+		byte type = event.type;
+		if (type == 2)
+			return;
+		String text = event.message.getFormattedText();
+		String plainText = text.replaceAll("\\u00a7.", "");
+		if (plainText.trim().startsWith("You've earned a Crystal Loot Bundle!"))
+			new Thread() {
+				@Override
+				public void run() {
+					try {
+						System.out.println("LootBundle");
+						Thread.sleep(400);
+						MinecraftForge.EVENT_BUS.post(new NucleusLootEvent());
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}.start();
 	}
 
 	@SubscribeEvent

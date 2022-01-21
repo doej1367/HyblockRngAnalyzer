@@ -8,6 +8,7 @@ import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
 
 import me.hyblockrnganalyzer.eventhandler.HypixelEventHandler;
+import me.hyblockrnganalyzer.eventhandler.NucleusLootEventHandler;
 import me.hyblockrnganalyzer.eventhandler.TreasureChestEventHandler;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.common.MinecraftForge;
@@ -22,23 +23,33 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 @Mod(modid = Main.MODID, version = Main.VERSION)
 public class Main {
 	public static final String MODID = "hyblockrnganalyzer";
-	public static final String VERSION = "1.0";
+	public static final String VERSION = "1.2";
 
-	private File databaseFile;
+	private File logFolder;
+	public String[] logFileNames = { "database.txt", "databaseFileNucleusLoot.txt" };
+
+	public static File databaseFile;
+	public static File databaseFileNucleusLoot;
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
+		logFolder = event.getModConfigurationDirectory();
+		for (String name : logFileNames)
+			createFile(name);
+		System.out.println("[OK] preInit Hyblock RNG Analyzer");
+	}
+
+	private void createFile(String name) {
 		try {
-			File dir = new File(event.getModConfigurationDirectory(), MODID);
+			File dir = new File(logFolder, MODID);
 			dir.mkdirs();
-			databaseFile = new File(dir, "database.txt");
-			if (!databaseFile.exists())
-				databaseFile.createNewFile();
+			File file = new File(dir, name);
+			if (!file.exists())
+				file.createNewFile();
+			System.out.println("database file: " + file.getAbsolutePath());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println("database file: " + databaseFile.getAbsolutePath());
-		System.out.println("[OK] preInit Hyblock RNG Analyzer");
 	}
 
 	@EventHandler
@@ -47,6 +58,7 @@ public class Main {
 		MinecraftForge.EVENT_BUS.register(new HypixelEventHandler(this));
 		// handling Hypixel events
 		MinecraftForge.EVENT_BUS.register(new TreasureChestEventHandler(this));
+		MinecraftForge.EVENT_BUS.register(new NucleusLootEventHandler(this));
 
 		// TODO add more events
 
@@ -59,11 +71,12 @@ public class Main {
 		System.out.println("[OK] postInit Hyblock RNG Analyzer");
 	}
 
-	public void addDataset(String dataset) {
-		if (databaseFile.exists()) {
+	public void addDataset(String dataset, int fileName) {
+		File file = new File(new File(logFolder, MODID), logFileNames[fileName]);
+		if (file.exists()) {
 			try {
 				BufferedWriter writer = new BufferedWriter(
-						new OutputStreamWriter(new FileOutputStream(databaseFile, true), StandardCharsets.UTF_8));
+						new OutputStreamWriter(new FileOutputStream(file, true), StandardCharsets.UTF_8));
 				writer.append(dataset);
 				writer.close();
 			} catch (IOException e) {
