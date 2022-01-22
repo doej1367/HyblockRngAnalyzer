@@ -18,7 +18,6 @@ public class NucleusLootEvent extends Event {
 		// INFO EntityTypes: EntityWither, EntityPlayerSP, EntityOtherPlayerMP,
 		// EntityItem, EntityArmorStand
 		List<Entity> entities = Minecraft.getMinecraft().theWorld.getLoadedEntityList();
-		System.out.println("Entities: " + entities.size());
 		for (Entity e : entities) {
 			Vec3 v = e.getPositionVector();
 			double x = v.xCoord, y = v.yCoord, z = v.zCoord;
@@ -29,16 +28,9 @@ public class NucleusLootEvent extends Event {
 				for (ItemStack i : inventoryContents) {
 					if (i == null)
 						continue;
-					System.out.println(i);
 					String name = i.getDisplayName().replaceAll("\\u00a7.", "");
 					int count = i.stackSize;
-					// TODO "Head" item -> ArmorStand title "HotM Experience"
-					// TODO double check count as it seems to be always 1
-					if (name.contains("HotM Experience")) {
-						String tmp = "HotM Experience";
-						count = Integer.parseInt(name.replaceAll(tmp, "").trim());
-						name = tmp;
-					}
+					// INFO "Head" item == "800 HotM Experience"
 					contents.put(name, contents.getOrDefault(name, 0) + count);
 				}
 			}
