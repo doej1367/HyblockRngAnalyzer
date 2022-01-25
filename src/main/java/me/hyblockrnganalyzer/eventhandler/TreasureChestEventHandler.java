@@ -24,7 +24,7 @@ public class TreasureChestEventHandler {
 			return;
 		StringBuilder sb = new StringBuilder();
 		for (Entry e : event.getChestContentsSummary().entrySet())
-			sb.append("," + e.getKey() + ":" + e.getValue());
+			sb.append(e.getKey() + ":" + e.getValue() + ",");
 		if (chestName.contains("Treasure Chest"))
 			main.addDataset(sb.toString() + "\n", 0);
 		else if (chestName.contains("Loot Chest"))
