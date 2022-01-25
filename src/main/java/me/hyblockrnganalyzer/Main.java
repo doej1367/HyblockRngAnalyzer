@@ -7,9 +7,10 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
 
-import me.hyblockrnganalyzer.eventhandler.HypixelEventHandler;
+import me.hyblockrnganalyzer.command.TestCommand;
 import me.hyblockrnganalyzer.eventhandler.NucleusLootEventHandler;
 import me.hyblockrnganalyzer.eventhandler.TreasureChestEventHandler;
+import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
@@ -54,10 +55,15 @@ public class Main {
 
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
+		// TODO /test command
+		// https://hypixel.net/threads/2606283/#post-18239751
+		ClientCommandHandler.instance.registerCommand(new TestCommand());
 		// converting Minecraft events into specific Hypixel SkyBlock events
 		MinecraftForge.EVENT_BUS.register(new HypixelEventHandler(this));
 		// handling Hypixel events
 		MinecraftForge.EVENT_BUS.register(new TreasureChestEventHandler(this));
+		// TODO dungeon chests ( open chest event )
+		// TODO add Jerry loot boxes ( click on item event )
 		MinecraftForge.EVENT_BUS.register(new NucleusLootEventHandler(this));
 
 		// TODO add more events

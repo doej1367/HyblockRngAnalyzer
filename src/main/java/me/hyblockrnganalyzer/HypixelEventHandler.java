@@ -1,6 +1,5 @@
-package me.hyblockrnganalyzer.eventhandler;
+package me.hyblockrnganalyzer;
 
-import me.hyblockrnganalyzer.Main;
 import me.hyblockrnganalyzer.event.NucleusLootEvent;
 import me.hyblockrnganalyzer.event.OpenCustomChestEvent;
 import net.minecraft.client.Minecraft;
@@ -35,7 +34,6 @@ public class HypixelEventHandler {
 				@Override
 				public void run() {
 					try {
-						System.out.println("LootBundle");
 						Thread.sleep(400);
 						MinecraftForge.EVENT_BUS.post(new NucleusLootEvent());
 					} catch (InterruptedException e) {
