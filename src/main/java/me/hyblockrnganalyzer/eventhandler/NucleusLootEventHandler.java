@@ -14,6 +14,8 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.Vec3;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class NucleusLootEventHandler {
 	private Main main;
@@ -22,6 +24,7 @@ public class NucleusLootEventHandler {
 		this.main = main;
 	}
 
+	@SideOnly(Side.CLIENT)
 	@SubscribeEvent
 	public void onNucleusLoot(final NucleusLootEvent event) {
 		// start thread to watch player movement
@@ -48,7 +51,7 @@ public class NucleusLootEventHandler {
 				StringBuilder sb = new StringBuilder();
 				for (Entry<String, Integer> e : event.getArmorStandContentsSummary().entrySet())
 					sb.append(e.getKey() + ":" + e.getValue() + ",");
-				main.addDataset(sb.toString() + "\n", 1);
+				main.addDataset(sb.toString() + "\n", 2);
 				Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText("Loot is recorded!"));
 			};
 		}.start();

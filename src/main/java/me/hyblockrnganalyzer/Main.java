@@ -8,6 +8,7 @@ import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
 
 import me.hyblockrnganalyzer.command.TestCommand;
+import me.hyblockrnganalyzer.eventhandler.JerryBoxEventHandler;
 import me.hyblockrnganalyzer.eventhandler.NucleusLootEventHandler;
 import me.hyblockrnganalyzer.eventhandler.TreasureChestEventHandler;
 import net.minecraftforge.client.ClientCommandHandler;
@@ -27,10 +28,9 @@ public class Main {
 	public static final String VERSION = "1.2";
 
 	private File logFolder;
-	public String[] logFileNames = { "database.txt", "databaseFileNucleusLoot.txt" };
-
-	public static File databaseFile;
-	public static File databaseFileNucleusLoot;
+	public String[] logFileNames = { "databaseTreasureChest.txt", "databaseLootChest.txt", "databaseNucleusLoot.txt",
+			"databaseGreenJerryBox.txt", "databaseBlueJerryBox.txt", "databasePurpleJerryBox.txt",
+			"databaseGoldJerryBox.txt" };
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
@@ -61,10 +61,8 @@ public class Main {
 		// handling Hypixel events
 		MinecraftForge.EVENT_BUS.register(new TreasureChestEventHandler(this));
 		// TODO dungeon chests ( open chest event )
-		// TODO add Jerry loot boxes ( right click with item event -> remember box type,
-		// extract loot from chat)
+		MinecraftForge.EVENT_BUS.register(new JerryBoxEventHandler(this));
 		MinecraftForge.EVENT_BUS.register(new NucleusLootEventHandler(this));
-
 		// TODO add more events
 
 		System.out.println("[OK] registered events");
@@ -76,8 +74,8 @@ public class Main {
 		System.out.println("[OK] postInit Hyblock RNG Analyzer");
 	}
 
-	public void addDataset(String dataset, int fileName) {
-		File file = new File(new File(logFolder, MODID), logFileNames[fileName]);
+	public void addDataset(String dataset, int fileNumber) {
+		File file = new File(new File(logFolder, MODID), logFileNames[fileNumber]);
 		if (file.exists()) {
 			try {
 				BufferedWriter writer = new BufferedWriter(
