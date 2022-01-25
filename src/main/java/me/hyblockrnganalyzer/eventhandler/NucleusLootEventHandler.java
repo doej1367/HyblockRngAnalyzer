@@ -28,10 +28,16 @@ public class NucleusLootEventHandler {
 		new Thread() {
 			@Override
 			public void run() {
+				long timestamp = System.currentTimeMillis();
 				Vec3 v = Minecraft.getMinecraft().thePlayer.getPositionVector();
-				while (v.xCoord > 522 || v.xCoord < 504 
-						|| v.yCoord > 114 || v.yCoord < 96 
-						|| v.zCoord > 560 || v.zCoord < 540) {
+				while (v.xCoord > 522 || v.xCoord < 504 || v.yCoord > 114 || v.yCoord < 96 || v.zCoord > 560
+						|| v.zCoord < 540) {
+					if ((System.currentTimeMillis() - timestamp) > (1000 * 60 * 3)) {
+						// cancel after 3 minutes
+						Minecraft.getMinecraft().thePlayer
+								.addChatMessage(new ChatComponentText("Loot recording canceled!"));
+						return;
+					}
 					try {
 						Thread.sleep(50);
 						v = Minecraft.getMinecraft().thePlayer.getPositionVector();

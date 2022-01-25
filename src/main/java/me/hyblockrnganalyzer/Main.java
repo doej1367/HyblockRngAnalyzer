@@ -55,15 +55,14 @@ public class Main {
 
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
-		// TODO /test command
-		// https://hypixel.net/threads/2606283/#post-18239751
 		ClientCommandHandler.instance.registerCommand(new TestCommand());
 		// converting Minecraft events into specific Hypixel SkyBlock events
 		MinecraftForge.EVENT_BUS.register(new HypixelEventHandler(this));
 		// handling Hypixel events
 		MinecraftForge.EVENT_BUS.register(new TreasureChestEventHandler(this));
 		// TODO dungeon chests ( open chest event )
-		// TODO add Jerry loot boxes ( click on item event )
+		// TODO add Jerry loot boxes ( right click with item event -> remember box type,
+		// extract loot from chat)
 		MinecraftForge.EVENT_BUS.register(new NucleusLootEventHandler(this));
 
 		// TODO add more events
