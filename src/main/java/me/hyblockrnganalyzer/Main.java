@@ -1,12 +1,24 @@
 package me.hyblockrnganalyzer;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map.Entry;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
+import me.hyblockrnganalyzer.command.CsvFileCreationCommand;
 import me.hyblockrnganalyzer.command.TestCommand;
 import me.hyblockrnganalyzer.eventhandler.JerryBoxEventHandler;
 import me.hyblockrnganalyzer.eventhandler.NucleusLootEventHandler;
@@ -25,7 +37,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 @Mod(modid = Main.MODID, version = Main.VERSION)
 public class Main {
 	public static final String MODID = "hyblockrnganalyzer";
-	public static final String VERSION = "1.3";
+	public static final String VERSION = "1.4";
 
 	private File logFolder;
 	public String[] logFileNames = { "databaseTreasureChest.txt", "databaseLootChest.txt", "databaseNucleusLoot.txt",
@@ -56,6 +68,7 @@ public class Main {
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
 		ClientCommandHandler.instance.registerCommand(new TestCommand());
+		ClientCommandHandler.instance.registerCommand(new CsvFileCreationCommand(this));
 		// converting Minecraft events into specific Hypixel SkyBlock events
 		MinecraftForge.EVENT_BUS.register(new HypixelEventHandler(this));
 		// handling Hypixel events
@@ -83,6 +96,56 @@ public class Main {
 				writer.append(dataset);
 				writer.close();
 			} catch (IOException e) {
+			}
+		}
+	}
+
+	public void databasesToCsv() {
+		for (String name : logFileNames) {
+			File txtFile = new File(new File(logFolder, MODID), name);
+			File csvFile = new File(new File(logFolder, MODID), name.split("\\.")[0] + ".csv");
+			if (!csvFile.exists())
+				try {
+					csvFile.createNewFile();
+				} catch (IOException ignored) {
+				}
+			if (txtFile.exists() && csvFile.exists()) {
+				try {
+					ArrayList<TreeMap<String, Integer>> data = new ArrayList<TreeMap<String, Integer>>();
+					TreeSet<String> items = new TreeSet<String>();
+					BufferedReader reader = new BufferedReader(
+							new InputStreamReader(new FileInputStream(txtFile), StandardCharsets.UTF_8));
+					String line;
+					while ((line = reader.readLine()) != null) {
+						if (line.isEmpty())
+							continue;
+						TreeMap<String, Integer> tm = new TreeMap<String, Integer>();
+						for (String s : line.split(",")) {
+							if (s.isEmpty() || !s.contains(":") || !s.split(":")[1].matches("[0-9]+"))
+								continue;
+							tm.put(s.split(":")[0], Integer.parseInt(s.split(":")[1]));
+							items.add(s.split(":")[0]);
+						}
+						data.add(tm);
+					}
+					reader.close();
+					List<String> itemList = new ArrayList<String>(items);
+					Collections.sort(itemList);
+					BufferedWriter writer = new BufferedWriter(
+							new OutputStreamWriter(new FileOutputStream(csvFile, false), StandardCharsets.UTF_8));
+					boolean first = true;
+					for (String item : itemList)
+						writer.append((first ? ((first = false) ? "" : "") : ",") + item);
+					writer.append("\n");
+					for (TreeMap<String, Integer> tm : data) {
+						first = true;
+						for (String item : itemList)
+							writer.append((first ? ((first = false) ? "" : "") : ",") + tm.getOrDefault(item, 0));
+						writer.append("\n");
+					}
+					writer.close();
+				} catch (IOException e) {
+				}
 			}
 		}
 	}
