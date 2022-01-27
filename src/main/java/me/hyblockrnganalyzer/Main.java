@@ -24,6 +24,7 @@ import me.hyblockrnganalyzer.eventhandler.DungeonChestEventHandler;
 import me.hyblockrnganalyzer.eventhandler.JerryBoxEventHandler;
 import me.hyblockrnganalyzer.eventhandler.NucleusLootEventHandler;
 import me.hyblockrnganalyzer.eventhandler.TreasureChestEventHandler;
+import me.hyblockrnganalyzer.util.DungeonChestStatus;
 import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.common.MinecraftForge;
@@ -44,11 +45,7 @@ public class Main {
 	public String[] logFileNames = { "databaseTreasureChest.txt", "databaseLootChest.txt", "databaseNucleusLoot.txt",
 			"databaseGreenJerryBox.txt", "databaseBlueJerryBox.txt", "databasePurpleJerryBox.txt",
 			"databaseGoldJerryBox.txt", "databaseDungeons.txt" };
-	private int floor;
-	private int dungeonChestLastOpened = -1;
-	private int[] dungeonChestStates = new int[6];
-	private String recentChestInventoryItem;
-	private long timestampLastReroll;
+	private DungeonChestStatus dungeonChestStatus = new DungeonChestStatus();
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
@@ -156,58 +153,7 @@ public class Main {
 		}
 	}
 
-	public boolean isStatusSaved(int chestType) {
-		return dungeonChestStates[chestType] == 1;
+	public DungeonChestStatus getDungeonChestStatus() {
+		return dungeonChestStatus;
 	}
-
-	public void setStatusSaved(int chestType) {
-		dungeonChestStates[chestType] = 1;
-	}
-
-	public int isRerolled(int chestType) {
-		return dungeonChestStates[chestType] == 2 ? 1 : 0;
-	}
-
-	public void setRerolled() {
-		long lastReroll = timestampLastReroll;
-		timestampLastReroll = System.currentTimeMillis();
-		if (timestampLastReroll - lastReroll > 1000 && getRecentChestInventoryItem().contains("Reroll Chest"))
-			dungeonChestStates[dungeonChestLastOpened] = 2;
-	}
-
-	public int getFloor() {
-		return floor;
-	}
-
-	public void setDungeonChestLastOpened(int dungeonChestLastOpened) {
-		this.dungeonChestLastOpened = dungeonChestLastOpened;
-	}
-
-	public void resetDungeonChestStatus(String romanFloor, boolean isMasterMode) {
-		dungeonChestLastOpened = -1;
-		dungeonChestStates = new int[6];
-		floor = parseRomanNumeral(romanFloor) + (isMasterMode ? 7 : 0);
-	}
-
-	private int parseRomanNumeral(String romanNumeral) {
-		// core idea from https://stackoverflow.com/a/17534350
-		if (romanNumeral.length() < 1)
-			return 0;
-		if (romanNumeral.startsWith("V"))
-			return 5 + parseRomanNumeral(romanNumeral.substring(1));
-		if (romanNumeral.startsWith("IV"))
-			return 4 + parseRomanNumeral(romanNumeral.substring(2));
-		if (romanNumeral.startsWith("I"))
-			return 1 + parseRomanNumeral(romanNumeral.substring(1));
-		return 0;
-	}
-
-	public String getRecentChestInventoryItem() {
-		return recentChestInventoryItem;
-	}
-
-	public void setRecentChestInventoryItem(String recentChestInventoryItem) {
-		this.recentChestInventoryItem = recentChestInventoryItem;
-	}
-
 }

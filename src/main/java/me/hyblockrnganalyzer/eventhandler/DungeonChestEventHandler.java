@@ -26,16 +26,16 @@ public class DungeonChestEventHandler {
 			chestType = chestName.contains(chestTypes[i] + " Chest") ? i : chestType;
 		if (chestType < 0)
 			return;
-		main.setDungeonChestLastOpened(chestType);
-		if (main.isStatusSaved(chestType))
+		main.getDungeonChestStatus().setDungeonChestLastOpened(chestType);
+		if (main.getDungeonChestStatus().isStatusSaved(chestType))
 			return;
 		StringBuilder sb = new StringBuilder();
-		int floorType = main.getFloor();
-		sb.append("chestType:" + chestType + ",floorType:" + floorType + ",isRerolled:" + main.isRerolled(chestType)
+		int floorType = main.getDungeonChestStatus().getFloor();
+		sb.append("chestType:" + chestType + ",floorType:" + floorType + ",isRerolled:" + main.getDungeonChestStatus().isRerolled(chestType)
 				+ ",");
 		for (Entry e : event.getChestContentsSummary().entrySet())
 			sb.append(e.getKey() + ":" + e.getValue() + ",");
-		main.setStatusSaved(chestType);
+		main.getDungeonChestStatus().setStatusSaved(chestType);
 		main.addDataset(sb.toString() + "\n", 7);
 	}
 }

@@ -59,9 +59,9 @@ public class HypixelEventHandler {
 				|| plainText.contains(" claimed ")) && plainText.endsWith(" Jerry Box!"))
 			MinecraftForge.EVENT_BUS.post(new JerryBoxOpenedEvent(jerryBoxType, plainText.trim()));
 		else if (plainText.startsWith("The Catacombs - Floor"))
-			main.resetDungeonChestStatus(plainText.split("Floor ")[1], false);
+			main.getDungeonChestStatus().resetDungeonChestStatus(plainText.split("Floor ")[1], false);
 		else if (plainText.startsWith("Master Mode Catacombs - Floor "))
-			main.resetDungeonChestStatus(plainText.split("Floor ")[1], true);
+			main.getDungeonChestStatus().resetDungeonChestStatus(plainText.split("Floor ")[1], true);
 		else if (plainText.startsWith("You've earned a Crystal Loot Bundle!"))
 			new Thread() {
 				@Override
@@ -99,22 +99,9 @@ public class HypixelEventHandler {
 
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent
-	public void onGuiClick(final GuiScreenEvent.MouseInputEvent.Pre event) {
-		if (event.gui instanceof GuiChest) {
-			Slot slot = ((GuiChest) event.gui).getSlotUnderMouse();
-			if (slot != null) {
-				ItemStack item = slot.getStack();
-				if (item != null)
-					main.setRecentChestInventoryItem(item.getDisplayName().replaceAll("\\u00a7.", ""));
-			}
-		}
-	}
-
-	@SideOnly(Side.CLIENT)
-	@SubscribeEvent
 	public void onGuiClick(PlaySoundEvent event) {
 		if (event.name.equalsIgnoreCase("mob.zombie.unfect"))
-			main.setRerolled();
+			main.getDungeonChestStatus().setRerolled();
 	}
 
 }
