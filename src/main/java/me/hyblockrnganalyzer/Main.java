@@ -48,6 +48,7 @@ public class Main {
 	private int dungeonChestLastOpened = -1;
 	private int[] dungeonChestStates = new int[6];
 	private String recentChestInventoryItem;
+	private long timestampLastReroll;
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
@@ -167,8 +168,11 @@ public class Main {
 		return dungeonChestStates[chestType] == 2 ? 1 : 0;
 	}
 
-	public void setRerolled() { // TODO trigger on chest GUI click
-		dungeonChestStates[dungeonChestLastOpened] = 2;
+	public void setRerolled() {
+		long lastReroll = timestampLastReroll;
+		timestampLastReroll = System.currentTimeMillis();
+		if (timestampLastReroll - lastReroll > 1000 && getRecentChestInventoryItem().contains("Reroll Chest"))
+			dungeonChestStates[dungeonChestLastOpened] = 2;
 	}
 
 	public int getFloor() {

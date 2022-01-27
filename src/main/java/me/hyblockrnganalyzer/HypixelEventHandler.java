@@ -15,6 +15,7 @@ import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.client.event.MouseEvent;
+import net.minecraftforge.client.event.sound.PlaySoundEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.ServerChatEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -107,6 +108,13 @@ public class HypixelEventHandler {
 					main.setRecentChestInventoryItem(item.getDisplayName().replaceAll("\\u00a7.", ""));
 			}
 		}
+	}
+
+	@SideOnly(Side.CLIENT)
+	@SubscribeEvent
+	public void onGuiClick(PlaySoundEvent event) {
+		if (event.name.equalsIgnoreCase("mob.zombie.unfect"))
+			main.setRerolled();
 	}
 
 }
