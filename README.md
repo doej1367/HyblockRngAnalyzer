@@ -14,7 +14,7 @@ with the goal to figure out as many drop chances as possible for the wiki.
 
 ## Requirements (to run)
 
-- Download the latest .jar file from the [releases](https://github.com/doej1367/HyblockRngAnalyzer/releases)
+- Download the latest `.jar` file from the [releases](https://github.com/doej1367/HyblockRngAnalyzer/releases)
 - Make sure [Forge 1.8.9](https://files.minecraftforge.net/net/minecraftforge/forge/index_1.8.9.html) is installed
 
 ## Requirements (to build)
