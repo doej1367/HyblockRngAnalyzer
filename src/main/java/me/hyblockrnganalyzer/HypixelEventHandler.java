@@ -5,8 +5,11 @@ import me.hyblockrnganalyzer.event.NucleusLootEvent;
 import me.hyblockrnganalyzer.event.OpenCustomChestEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiChest;
+import net.minecraft.client.gui.inventory.GuiInventory;
+import net.minecraft.event.ClickEvent;
 import net.minecraft.inventory.ContainerChest;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.client.event.GuiOpenEvent;
@@ -16,6 +19,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.ServerChatEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.InputEvent.MouseInputEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -46,14 +50,18 @@ public class HypixelEventHandler {
 		if (type == 2)
 			return;
 		String text = event.message.getFormattedText();
-		String plainText = text.replaceAll("\\u00a7.", "");
-		if (plainText.trim().length() < 3)
+		String plainText = text.replaceAll("\\u00a7.", "").trim();
+		if (plainText.length() < 3)
 			return;
-		if (plainText.trim().substring(1).startsWith(" ") && ((plainText.trim().contains(" found ") && plainText.trim()
+		if (plainText.substring(1).startsWith(" ") && ((plainText.contains(" found ") && plainText
 				.contains(Minecraft.getMinecraft().thePlayer.getDisplayNameString().replaceAll("\\u00a7.", "")))
-				|| plainText.trim().contains(" claimed ")) && plainText.trim().endsWith(" Jerry Box!"))
+				|| plainText.contains(" claimed ")) && plainText.endsWith(" Jerry Box!"))
 			MinecraftForge.EVENT_BUS.post(new JerryBoxOpenedEvent(jerryBoxType, plainText.trim()));
-		else if (plainText.trim().startsWith("You've earned a Crystal Loot Bundle!"))
+		else if (plainText.startsWith("The Catacombs - Floor"))
+			main.resetDungeonChestStatus(plainText.split("Floor ")[1], false);
+		else if (plainText.startsWith("Master Mode Catacombs - Floor "))
+			main.resetDungeonChestStatus(plainText.split("Floor ")[1], true);
+		else if (plainText.startsWith("You've earned a Crystal Loot Bundle!"))
 			new Thread() {
 				@Override
 				public void run() {
@@ -85,6 +93,19 @@ public class HypixelEventHandler {
 					}
 				}
 			}.start();
+		}
+	}
+
+	@SideOnly(Side.CLIENT)
+	@SubscribeEvent
+	public void onGuiClick(final GuiScreenEvent.MouseInputEvent.Pre event) {
+		if (event.gui instanceof GuiChest) {
+			Slot slot = ((GuiChest) event.gui).getSlotUnderMouse();
+			if (slot != null) {
+				ItemStack item = slot.getStack();
+				if (item != null)
+					main.setRecentChestInventoryItem(item.getDisplayName().replaceAll("\\u00a7.", ""));
+			}
 		}
 	}
 

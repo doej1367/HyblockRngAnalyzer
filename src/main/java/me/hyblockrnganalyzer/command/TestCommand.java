@@ -35,7 +35,7 @@ public class TestCommand extends CommandBase {
 
 	@Override
 	public void processCommand(ICommandSender sender, String[] args) throws CommandException {
-		// TODO
+		// TODO (placeholder for testing something)
 		Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText("TestCommand"));
 	}
 

@@ -30,10 +30,27 @@ public class OpenCustomChestEvent extends Event {
 			if (item == null)
 				continue;
 			String key = item.getDisplayName().replaceAll("\\u00a7.", "");
+			if (key.length() < 2 || key.contains("Close") || key.contains("Reroll Chest"))
+				continue;
 			int count = item.stackSize;
 			if (key.contains("Mithril Powder") || key.contains("Gemstone Powder")) {
 				String tmp = key.contains("Mithril Powder") ? "Mithril Powder" : "Gemstone Powder";
 				count = Integer.parseInt(key.replaceAll(tmp, "").trim());
+				key = tmp;
+			} else if (key.contains("Enchanted Book")) {
+				key = item.getTagCompound().getCompoundTag("display").getTagList("Lore", 8).get(0).toString()
+						.replaceAll("\\u00a7.", "").replaceAll("\"", "");
+			} else if (key.contains("Open Reward Chest")) {
+				key = "coins";
+				String tmp = item.getTagCompound().getCompoundTag("display").getTagList("Lore", 8).get(6).toString()
+						.replaceAll("\\u00a7.", "").replaceAll("\"", "");
+				if (tmp.equalsIgnoreCase("FREE"))
+					count = 0;
+				else
+					count = Integer.parseInt(tmp.split(" ")[0].replaceAll(",", ""));
+			} else if (key.contains(" x") && key.split(" x")[1].matches("[0-9]+")) {
+				String tmp = key.split(" x")[0];
+				count = Integer.parseInt(key.split(" x")[1].trim());
 				key = tmp;
 			}
 			contents.put(key, contents.getOrDefault(key, 0) + count);

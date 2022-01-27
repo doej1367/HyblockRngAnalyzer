@@ -20,6 +20,7 @@ import java.util.TreeSet;
 
 import me.hyblockrnganalyzer.command.CsvFileCreationCommand;
 import me.hyblockrnganalyzer.command.TestCommand;
+import me.hyblockrnganalyzer.eventhandler.DungeonChestEventHandler;
 import me.hyblockrnganalyzer.eventhandler.JerryBoxEventHandler;
 import me.hyblockrnganalyzer.eventhandler.NucleusLootEventHandler;
 import me.hyblockrnganalyzer.eventhandler.TreasureChestEventHandler;
@@ -37,12 +38,16 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 @Mod(modid = Main.MODID, version = Main.VERSION)
 public class Main {
 	public static final String MODID = "hyblockrnganalyzer";
-	public static final String VERSION = "1.4";
+	public static final String VERSION = "1.5";
 
 	private File logFolder;
 	public String[] logFileNames = { "databaseTreasureChest.txt", "databaseLootChest.txt", "databaseNucleusLoot.txt",
 			"databaseGreenJerryBox.txt", "databaseBlueJerryBox.txt", "databasePurpleJerryBox.txt",
-			"databaseGoldJerryBox.txt" };
+			"databaseGoldJerryBox.txt", "databaseDungeons.txt" };
+	private int floor;
+	private int dungeonChestLastOpened = -1;
+	private int[] dungeonChestStates = new int[6];
+	private String recentChestInventoryItem;
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
@@ -73,10 +78,10 @@ public class Main {
 		MinecraftForge.EVENT_BUS.register(new HypixelEventHandler(this));
 		// handling Hypixel events
 		MinecraftForge.EVENT_BUS.register(new TreasureChestEventHandler(this));
-		// TODO dungeon chests ( open chest event )
+		MinecraftForge.EVENT_BUS.register(new DungeonChestEventHandler(this));
 		MinecraftForge.EVENT_BUS.register(new JerryBoxEventHandler(this));
 		MinecraftForge.EVENT_BUS.register(new NucleusLootEventHandler(this));
-		// TODO add more events
+		// TODO (placeholder for more event handlers)
 
 		System.out.println("[OK] registered events");
 		System.out.println("[OK] init Hyblock RNG Analyzer");
@@ -148,6 +153,57 @@ public class Main {
 				}
 			}
 		}
+	}
+
+	public boolean isStatusSaved(int chestType) {
+		return dungeonChestStates[chestType] == 1;
+	}
+
+	public void setStatusSaved(int chestType) {
+		dungeonChestStates[chestType] = 1;
+	}
+
+	public int isRerolled(int chestType) {
+		return dungeonChestStates[chestType] == 2 ? 1 : 0;
+	}
+
+	public void setRerolled() { // TODO trigger on chest GUI click
+		dungeonChestStates[dungeonChestLastOpened] = 2;
+	}
+
+	public int getFloor() {
+		return floor;
+	}
+
+	public void setDungeonChestLastOpened(int dungeonChestLastOpened) {
+		this.dungeonChestLastOpened = dungeonChestLastOpened;
+	}
+
+	public void resetDungeonChestStatus(String romanFloor, boolean isMasterMode) {
+		dungeonChestLastOpened = -1;
+		dungeonChestStates = new int[6];
+		floor = parseRomanNumeral(romanFloor) + (isMasterMode ? 7 : 0);
+	}
+
+	private int parseRomanNumeral(String romanNumeral) {
+		// core idea from https://stackoverflow.com/a/17534350
+		if (romanNumeral.length() < 1)
+			return 0;
+		if (romanNumeral.startsWith("V"))
+			return 5 + parseRomanNumeral(romanNumeral.substring(1));
+		if (romanNumeral.startsWith("IV"))
+			return 4 + parseRomanNumeral(romanNumeral.substring(2));
+		if (romanNumeral.startsWith("I"))
+			return 1 + parseRomanNumeral(romanNumeral.substring(1));
+		return 0;
+	}
+
+	public String getRecentChestInventoryItem() {
+		return recentChestInventoryItem;
+	}
+
+	public void setRecentChestInventoryItem(String recentChestInventoryItem) {
+		this.recentChestInventoryItem = recentChestInventoryItem;
 	}
 
 }
