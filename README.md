@@ -6,6 +6,7 @@ with the goal to figure out as many drop chances as possible for the wiki.
 
 ## Features
 
+- get the `Dungeon Chest` contents and write them to two file in the config folder
 - get the `Treasure and Loot Chest` contents and write them to two file in the config folder
 - get the `Crystal Nucleus Loot` contents and write them to a file in the config folder
 - get `Jerry Box Loot` contents grouped by box type and write them to four files in the config folder
