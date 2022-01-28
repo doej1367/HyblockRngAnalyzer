@@ -102,7 +102,7 @@ public class GiftEventHandler {
 
 	private boolean hasGiftReward(StackedArmorStand closestArmorStand) {
 		return closestArmorStand != null
-				&& closestArmorStand.getName().replaceAll("\\u00a7.", "").matches("[A-Z]+! .+!");
+				&& closestArmorStand.getName().replaceAll("\\u00a7.", "").matches("[A-Z ]+! .+!");
 	}
 
 	private int getGiftType(String giftType) {
