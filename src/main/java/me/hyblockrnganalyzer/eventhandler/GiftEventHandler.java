@@ -80,7 +80,7 @@ public class GiftEventHandler {
 					} else
 						name = loot;
 					if (name != null && !name.isEmpty() && giftType >= 0)
-						main.addDataset("giftType:" + giftType + "," + name + ":" + count + "\n", 8);
+						main.addDataset("_giftType:" + giftType + "," + name + ":" + count + "\n", 5);
 					giftTypeAtPosition.cleanup();
 				}
 			}.start();

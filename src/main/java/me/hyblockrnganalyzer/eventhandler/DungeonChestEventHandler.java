@@ -31,11 +31,11 @@ public class DungeonChestEventHandler {
 			return;
 		StringBuilder sb = new StringBuilder();
 		int floorType = main.getDungeonChestStatus().getFloor();
-		sb.append("chestType:" + chestType + ",floorType:" + floorType + ",isRerolled:" + main.getDungeonChestStatus().isRerolled(chestType)
-				+ ",");
+		sb.append("_chestType:" + chestType + ",_floorType:" + floorType + ",_isRerolled:"
+				+ main.getDungeonChestStatus().isRerolled(chestType) + ",");
 		for (Entry e : event.getChestContentsSummary().entrySet())
 			sb.append(e.getKey() + ":" + e.getValue() + ",");
 		main.getDungeonChestStatus().setStatusSaved(chestType);
-		main.addDataset(sb.toString() + "\n", 7);
+		main.addDataset(sb.toString() + "\n", 4);
 	}
 }

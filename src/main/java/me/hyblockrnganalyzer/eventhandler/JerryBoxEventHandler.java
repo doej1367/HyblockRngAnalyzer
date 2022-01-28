@@ -14,10 +14,11 @@ public class JerryBoxEventHandler {
 	public JerryBoxEventHandler(Main main) {
 		this.main = main;
 	}
-	
+
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent
 	public void onJerryBox(JerryBoxOpenedEvent event) {
-		main.addDataset(event.getName() + ":" + event.getCount() + "\n", 3 + event.getBoxTypeNumber());
+		main.addDataset("_boxType:" + event.getBoxTypeNumber() + "," + event.getName() + ":" + event.getCount() + "\n",
+				3);
 	}
 }

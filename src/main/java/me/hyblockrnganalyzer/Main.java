@@ -44,8 +44,7 @@ public class Main {
 
 	private File logFolder;
 	public String[] logFileNames = { "databaseTreasureChest.txt", "databaseLootChest.txt", "databaseNucleusLoot.txt",
-			"databaseGreenJerryBox.txt", "databaseBlueJerryBox.txt", "databasePurpleJerryBox.txt",
-			"databaseGoldJerryBox.txt", "databaseDungeons.txt", "databaseGifts.txt"};
+			"databaseJerryBoxes.txt", "databaseDungeons.txt", "databaseGifts.txt"};
 	private DungeonChestStatus dungeonChestStatus = new DungeonChestStatus();
 
 	@EventHandler
