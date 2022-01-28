@@ -21,6 +21,8 @@ public class JerryBoxOpenedEvent extends Event {
 	}
 
 	public int getBoxTypeNumber() {
+		if (boxType == null)
+			return -1;
 		switch (boxType.charAt(1)) {
 		case 'r':
 			return 0;
@@ -31,7 +33,7 @@ public class JerryBoxOpenedEvent extends Event {
 		case 'o':
 			return 3;
 		}
-		return 0;
+		return -1;
 	}
 
 	public String getName() {
