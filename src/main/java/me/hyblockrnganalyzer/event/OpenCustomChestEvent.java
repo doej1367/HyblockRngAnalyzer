@@ -41,7 +41,7 @@ public class OpenCustomChestEvent extends Event {
 				key = item.getTagCompound().getCompoundTag("display").getTagList("Lore", 8).get(0).toString()
 						.replaceAll("\\u00a7.", "").replaceAll("\"", "");
 			} else if (key.contains("Open Reward Chest")) {
-				key = "coins";
+				key = "_coins";
 				String tmp = item.getTagCompound().getCompoundTag("display").getTagList("Lore", 8).get(6).toString()
 						.replaceAll("\\u00a7.", "").replaceAll("\"", "");
 				if (tmp.equalsIgnoreCase("FREE"))
