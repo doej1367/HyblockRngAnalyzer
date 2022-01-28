@@ -6,11 +6,12 @@ with the goal to figure out as many drop chances as possible for the wiki.
 
 ## Features
 
-- get the `Dungeon Chest` contents and write them to a file in the config folder
-- get the `Treasure and Loot Chest` contents and write them to two file in the config folder
-- get the `Crystal Nucleus Loot` contents and write them to a file in the config folder
-- get the `Gifts` rewards and write them to a file in the config folder
-- get the `Jerry Box Loot` contents grouped by box type and write them to four files in the config folder
+- Extract various data and append it to `.txt` files in the config folder
+    - `Treasure and Loot Chest` contents
+    - `Crystal Nucleus Loot Bundle` drops
+    - `Jerry Box` contents
+    - `Dungeon Chest` contents
+    - `Gift` rewards
 - `/csv` command to create more readable csv files from the database txt files
 
 ## Requirements (to run)
