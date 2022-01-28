@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
-import me.hyblockrnganalyzer.util.ArmorStandItemDrop;
+import me.hyblockrnganalyzer.util.StackedArmorStand;
 import me.hyblockrnganalyzer.util.HypixelEntityExtractor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
@@ -19,6 +19,6 @@ import net.minecraftforge.fml.common.eventhandler.Event;
 public class NucleusLootEvent extends Event {
 
 	public TreeMap<String, Integer> getArmorStandContentsSummary() {
-		return HypixelEntityExtractor.extractDrops();
+		return HypixelEntityExtractor.extractNucleusDrops();
 	}
 }

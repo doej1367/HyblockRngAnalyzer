@@ -21,6 +21,7 @@ import java.util.TreeSet;
 import me.hyblockrnganalyzer.command.CsvFileCreationCommand;
 import me.hyblockrnganalyzer.command.TestCommand;
 import me.hyblockrnganalyzer.eventhandler.DungeonChestEventHandler;
+import me.hyblockrnganalyzer.eventhandler.GiftEventHandler;
 import me.hyblockrnganalyzer.eventhandler.JerryBoxEventHandler;
 import me.hyblockrnganalyzer.eventhandler.NucleusLootEventHandler;
 import me.hyblockrnganalyzer.eventhandler.TreasureChestEventHandler;
@@ -39,12 +40,12 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 @Mod(modid = Main.MODID, version = Main.VERSION)
 public class Main {
 	public static final String MODID = "hyblockrnganalyzer";
-	public static final String VERSION = "1.5";
+	public static final String VERSION = "1.6";
 
 	private File logFolder;
 	public String[] logFileNames = { "databaseTreasureChest.txt", "databaseLootChest.txt", "databaseNucleusLoot.txt",
 			"databaseGreenJerryBox.txt", "databaseBlueJerryBox.txt", "databasePurpleJerryBox.txt",
-			"databaseGoldJerryBox.txt", "databaseDungeons.txt" };
+			"databaseGoldJerryBox.txt", "databaseDungeons.txt", "databaseGifts.txt"};
 	private DungeonChestStatus dungeonChestStatus = new DungeonChestStatus();
 
 	@EventHandler
@@ -79,6 +80,7 @@ public class Main {
 		MinecraftForge.EVENT_BUS.register(new DungeonChestEventHandler(this));
 		MinecraftForge.EVENT_BUS.register(new JerryBoxEventHandler(this));
 		MinecraftForge.EVENT_BUS.register(new NucleusLootEventHandler(this));
+		MinecraftForge.EVENT_BUS.register(new GiftEventHandler(this));
 		// TODO (placeholder for more event handlers)
 
 		System.out.println("[OK] registered events");
