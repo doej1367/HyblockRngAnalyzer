@@ -72,6 +72,8 @@ public class HypixelEventHandler {
 			main.getDungeonChestStatus().resetDungeonChestStatus(plainText.split("Floor ")[1], false);
 		else if (plainText.startsWith("Master Mode Catacombs - Floor "))
 			main.getDungeonChestStatus().resetDungeonChestStatus(plainText.split("Floor ")[1], true);
+		else if (plainText.trim().matches("Team Score: [0-9]+ [\\(][SABCD][+]?[\\)].*"))
+			main.getDungeonChestStatus().setScore(Integer.parseInt(plainText.trim().split(" ")[2]));
 		else if (plainText.startsWith("You've earned a Crystal Loot Bundle!"))
 			new Thread() {
 				@Override

@@ -31,8 +31,9 @@ public class DungeonChestEventHandler {
 			return;
 		StringBuilder sb = new StringBuilder();
 		int floorType = main.getDungeonChestStatus().getFloor();
+		int score = main.getDungeonChestStatus().getScore();
 		sb.append("_chestType:" + chestType + ",_floorType:" + floorType + ",_isRerolled:"
-				+ main.getDungeonChestStatus().isRerolled(chestType) + ",");
+				+ main.getDungeonChestStatus().isRerolled(chestType) + ",_score:" + score + ",");
 		for (Entry e : event.getChestContentsSummary().entrySet())
 			sb.append(e.getKey() + ":" + e.getValue() + ",");
 		main.getDungeonChestStatus().setStatusSaved(chestType);

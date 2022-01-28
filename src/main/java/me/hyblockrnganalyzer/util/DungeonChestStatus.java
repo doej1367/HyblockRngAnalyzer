@@ -2,17 +2,22 @@ package me.hyblockrnganalyzer.util;
 
 public class DungeonChestStatus {
 	private int floor;
+	private int score;
 	private int dungeonChestLastOpened = -1;
 	private int[] dungeonChestStates = new int[6];
 	private long timestampDungeonLoot;
 	private long timestampLastReroll;
 
-	public boolean isStatusSaved(int chestType) {
-		return dungeonChestStates[chestType] == 1;
+	public int getFloor() {
+		return floor;
 	}
 
-	public void setStatusSaved(int chestType) {
-		dungeonChestStates[chestType] = 1;
+	public int getScore() {
+		return score;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
 	}
 
 	public int isRerolled(int chestType) {
@@ -26,12 +31,12 @@ public class DungeonChestStatus {
 			dungeonChestStates[dungeonChestLastOpened] = 2;
 	}
 
-	public int getFloor() {
-		return floor;
+	public boolean isStatusSaved(int chestType) {
+		return dungeonChestStates[chestType] == 1;
 	}
 
-	public void setDungeonChestLastOpened(int dungeonChestLastOpened) {
-		this.dungeonChestLastOpened = dungeonChestLastOpened;
+	public void setStatusSaved(int chestType) {
+		dungeonChestStates[chestType] = 1;
 	}
 
 	public void resetDungeonChestStatus(String romanFloor, boolean isMasterMode) {
@@ -39,6 +44,10 @@ public class DungeonChestStatus {
 		dungeonChestLastOpened = -1;
 		dungeonChestStates = new int[6];
 		floor = parseRomanNumeral(romanFloor) + (isMasterMode ? 7 : 0);
+	}
+
+	public void setDungeonChestLastOpened(int dungeonChestLastOpened) {
+		this.dungeonChestLastOpened = dungeonChestLastOpened;
 	}
 
 	private int parseRomanNumeral(String romanNumeral) {
