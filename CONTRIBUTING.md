@@ -22,7 +22,7 @@
 11. Select `<your folder path>\Modding Workspace\eclipse` as eclipse workspace
 12. Switch to Dark Mode if you like: `Window > Preferences > General > Appearance > Theme: Dark`
 
-// TODO merge forge setup with this git repo
+// TODO merge forge dev env setup with this git repo
 
 ## Getting Started
 2. Log into github
