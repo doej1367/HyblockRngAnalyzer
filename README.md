@@ -21,5 +21,10 @@ with the goal to figure out as many drop chances as possible for the wiki.
 
 ## Requirements (to build)
 
+- [JDK 8](https://www.oracle.com/java/technologies/downloads/#java8-windows)
 - [Eclipse](https://www.eclipse.org/downloads/)
-- The [knowledge to properly set up the Forge development environment](https://hypixel.net/threads/guide-how-to-start-create-coding-minecraft-forge-mods.551741/#post-5352380)
+- [Forge MDK](https://files.minecraftforge.net/net/minecraftforge/forge/index_1.8.9.html)
+- The knowledge to properly set up the Forge development environment
+     - [Contributing Manual](CONTRIBUTING.md)
+     - [Hypixel Forum Post](https://hypixel.net/threads/guide-how-to-start-create-coding-minecraft-forge-mods.551741/#post-5352380)
+     - [German Youtube Tutorial](https://www.youtube.com/watch?v=6YS-ExDnrjg)
