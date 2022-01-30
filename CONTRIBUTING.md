@@ -5,7 +5,7 @@
 - [Forge 1.8.9 MDK (latest version)](https://files.minecraftforge.net/net/minecraftforge/forge/index_1.8.9.html) MDK (latest version)
 - [Eclipse](https://www.eclipse.org/downloads/) for Java
 
-## Setup Forge Development Environment (steps for Windows)
+## Getting Started (Steps for Windows)
 ### Part 1 - Software Installations
 1. Install `Minecraft` - if you haven't already
 2. Install `Java Development Kit 8`
