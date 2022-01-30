@@ -1,12 +1,9 @@
 # HyblockRngAnalyzer
-
-This is ment to be a data collector mod on all things Hypixel Skyblock 
-
+This is ment to be a data collector mod on all things Hypixel Skyblock  
 with the goal to figure out as many drop chances as possible for the wiki.
 
 ## Features
-
-- Extract various data and append it to `.txt` files in the config folder
+- Extract various data and append it to `.txt` files in the config folder.
     - `Treasure and Loot Chest` contents
     - `Crystal Nucleus Loot Bundle` drops
     - `Jerry Box` contents
@@ -14,17 +11,12 @@ with the goal to figure out as many drop chances as possible for the wiki.
     - `Gift` rewards
 - `/csv` command to create more readable csv files from the database txt files
 
-## Requirements (to run)
-
-- Download the latest `.jar` file from the [releases](https://github.com/doej1367/HyblockRngAnalyzer/releases)
+## How to intall and use this mod
 - Make sure [Forge 1.8.9](https://files.minecraftforge.net/net/minecraftforge/forge/index_1.8.9.html) is installed
+- Download the latest `.jar` file from the [releases](https://github.com/doej1367/HyblockRngAnalyzer/releases) and put it into your mod folder
+- The folder path of the database files should look something like the following:
+    - `C:\Users\User\AppData\Roaming\.minecraft\config\hyblockrnganalyzer\`
 
-## Requirements (to build)
-
-- [JDK 8](https://www.oracle.com/java/technologies/downloads/#java8-windows)
-- [Eclipse](https://www.eclipse.org/downloads/)
-- [Forge MDK](https://files.minecraftforge.net/net/minecraftforge/forge/index_1.8.9.html)
-- The knowledge to properly set up the Forge development environment
-     - [Contributing Manual](CONTRIBUTING.md)
-     - [Hypixel Forum Post](https://hypixel.net/threads/guide-how-to-start-create-coding-minecraft-forge-mods.551741/#post-5352380)
-     - [German Youtube Tutorial](https://www.youtube.com/watch?v=6YS-ExDnrjg)
+## How to contribute to this mod
+- [Contributing Manual](CONTRIBUTING.md) with step by step setup guide for the development environment  
+and a brief introduction on how this mod is structured and its inner workings
