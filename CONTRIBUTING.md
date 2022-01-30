@@ -1,7 +1,7 @@
 # Contributing to HyblockRngAnalyzer [WIP]
 
 ## Required Software
-- [Java Development Kit 8] (latest version) (https://www.oracle.com/java/technologies/downloads/#java8-windows)
+- [Java Development Kit 8](https://www.oracle.com/java/technologies/downloads/#java8-windows) (latest version)
 - [Forge 1.8.9 MDK (latest version)](https://files.minecraftforge.net/net/minecraftforge/forge/index_1.8.9.html) MDK (latest version)
 - [Eclipse](https://www.eclipse.org/downloads/) for Java
 
