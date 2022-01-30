@@ -1,14 +1,10 @@
 package me.hyblockrnganalyzer.command;
 
-import java.util.List;
-
 import me.hyblockrnganalyzer.Main;
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
-import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
-import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentText;
 
 public class CsvFileCreationCommand extends CommandBase {
@@ -30,7 +26,7 @@ public class CsvFileCreationCommand extends CommandBase {
 
 	@Override
 	public void processCommand(ICommandSender sender, String[] args) throws CommandException {
-		main.databasesToCsv();
+		main.getTxtDatabase().allToCsv();
 		Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText("Created csv files!"));
 	}
 

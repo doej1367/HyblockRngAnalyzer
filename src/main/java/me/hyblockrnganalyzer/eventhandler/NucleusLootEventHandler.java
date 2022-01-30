@@ -1,18 +1,12 @@
 package me.hyblockrnganalyzer.eventhandler;
 
-import java.util.List;
 import java.util.Map.Entry;
 
 import me.hyblockrnganalyzer.Main;
 import me.hyblockrnganalyzer.event.NucleusLootEvent;
-import me.hyblockrnganalyzer.event.OpenCustomChestEvent;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.EntityArmorStand;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.Vec3;
-import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -51,7 +45,7 @@ public class NucleusLootEventHandler {
 				StringBuilder sb = new StringBuilder();
 				for (Entry<String, Integer> e : event.getArmorStandContentsSummary().entrySet())
 					sb.append(e.getKey() + ":" + e.getValue() + ",");
-				main.addDataset(sb.toString() + "\n", 2);
+				main.getTxtDatabase().addDataset(sb.toString() + "\n", 2);
 				Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText("Loot is recorded!"));
 			};
 		}.start();

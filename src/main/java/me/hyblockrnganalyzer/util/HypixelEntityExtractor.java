@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.ConcurrentModificationException;
 import java.util.List;
-import java.util.TreeMap;
-import java.util.Map.Entry;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
@@ -14,30 +12,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Vec3;
 
 public class HypixelEntityExtractor {
-	private static String[] nucleusWhitelistExact = { "Oil Barrel", "Bob-omb", "Pickonimbus 2000", "Treasurite",
-			"Prehistoric Egg", "Helix", "Divan Fragment", "Recall Potion", "Jaderald", "Divan's Alloy",
-			"Enchanted Book", "Quick Claw", "Gemstone Mixture", "800 HotM Experience", "Wishing Compass" };
-	private static String[] nucleusWhitelistEndsWith = { " Gemstone", " Crystal" };
-
 	public static ArrayList<StackedArmorStand> extractAllStackedArmorStands() {
 		return extractStackedArmorStands(null, 0, false);
-	}
-
-	public static TreeMap<String, Integer> extractNucleusDrops() {
-		// step 3: analyze and summarize drops
-		TreeMap<String, Integer> contents = new TreeMap();
-		for (StackedArmorStand drop : extractStackedArmorStands(new Vec3(513, 105, 550), 8.0, false)) {
-			String key = drop.getName().replaceAll("\\u00a7.", "");
-			int count = key.trim().isEmpty() ? (drop.getInv().size() > 0 ? drop.getInv().get(0).stackSize : 0)
-					: (key.contains(" x") ? Integer.parseInt(key.split(" x")[1]) : 1);
-			key = key.trim().isEmpty()
-					? (drop.getInv().size() > 0 ? drop.getInv().get(0).getDisplayName().replaceAll("\\u00a7.", "") : "")
-					: (key.contains(" x") ? key.split(" x")[0] : key);
-			if (isWhitelisted(key))
-				contents.put(key,
-						contents.getOrDefault(key, 0) + (count * (key.equalsIgnoreCase("Treasurite") ? 5 : 1)));
-		}
-		return contents;
 	}
 
 	public static ArrayList<StackedArmorStand> extractStackedArmorStands(Vec3 position, double d,
@@ -45,7 +21,7 @@ public class HypixelEntityExtractor {
 		// INFO EntityTypes: EntityWither, EntityPlayerSP, EntityOtherPlayerMP,
 		// EntityItem, EntityArmorStand
 		try {
-			// step 1: filter armor stands at nucleus loot position
+			// step 1: filter for armor stands at and around given position
 			List<Entity> entities = Minecraft.getMinecraft().theWorld.getLoadedEntityList();
 
 			ArrayList<StackedArmorStand> drops = new ArrayList<StackedArmorStand>();
@@ -88,15 +64,5 @@ public class HypixelEntityExtractor {
 		} catch (ConcurrentModificationException e) {
 			return new ArrayList<StackedArmorStand>();
 		}
-	}
-
-	private static boolean isWhitelisted(String key) {
-		for (String w : nucleusWhitelistExact)
-			if (key.equalsIgnoreCase(w))
-				return true;
-		for (String w : nucleusWhitelistEndsWith)
-			if (key.endsWith(w))
-				return true;
-		return false;
 	}
 }

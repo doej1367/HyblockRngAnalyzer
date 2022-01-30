@@ -1,27 +1,13 @@
 package me.hyblockrnganalyzer.eventhandler;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-import java.util.TreeSet;
-
 import me.hyblockrnganalyzer.Main;
 import me.hyblockrnganalyzer.event.GiftOpenedEvent;
-import me.hyblockrnganalyzer.event.JerryBoxOpenedEvent;
 import me.hyblockrnganalyzer.util.GiftLocation;
 import me.hyblockrnganalyzer.util.GiftLocationList;
 import me.hyblockrnganalyzer.util.HypixelEntityExtractor;
 import me.hyblockrnganalyzer.util.StackedArmorStand;
 import me.hyblockrnganalyzer.util.Vec2;
-import net.minecraft.client.Minecraft;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.EntityArmorStand;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.Vec3;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -80,7 +66,7 @@ public class GiftEventHandler {
 					} else
 						name = loot;
 					if (name != null && !name.isEmpty() && giftType >= 0)
-						main.addDataset("_giftType:" + giftType + "," + name + ":" + count + "\n", 5);
+						main.getTxtDatabase().addDataset("_giftType:" + giftType + "," + name + ":" + count + "\n", 5);
 					giftTypeAtPosition.cleanup();
 				}
 			}.start();

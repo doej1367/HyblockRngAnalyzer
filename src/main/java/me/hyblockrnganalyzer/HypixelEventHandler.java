@@ -1,36 +1,20 @@
 package me.hyblockrnganalyzer;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
-
 import me.hyblockrnganalyzer.event.GiftOpenedEvent;
 import me.hyblockrnganalyzer.event.JerryBoxOpenedEvent;
 import me.hyblockrnganalyzer.event.NucleusLootEvent;
 import me.hyblockrnganalyzer.event.OpenCustomChestEvent;
-import me.hyblockrnganalyzer.eventhandler.GiftEventHandler;
-import me.hyblockrnganalyzer.util.HypixelEntityExtractor;
-import me.hyblockrnganalyzer.util.StackedArmorStand;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiChest;
-import net.minecraft.client.gui.inventory.GuiInventory;
-import net.minecraft.event.ClickEvent;
 import net.minecraft.inventory.ContainerChest;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Vec3;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
-import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.client.event.MouseEvent;
 import net.minecraftforge.client.event.sound.PlaySoundEvent;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.ServerChatEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.InputEvent.MouseInputEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -117,10 +101,6 @@ public class HypixelEventHandler {
 		if ((event.name.equalsIgnoreCase("random.successful_hit") && event.sound.getPitch() > 0.8f)
 				|| (event.name.equalsIgnoreCase("random.explode") && event.sound.getPitch() > 1.0f))
 			MinecraftForge.EVENT_BUS.post(new GiftOpenedEvent(event));
-
-		// TODO only for debug and testing
-		if (event.name.equalsIgnoreCase("mob.zombie.unfect"))
-			System.out.println(event.name + " " + event.sound.getPitch());
 	}
 
 }

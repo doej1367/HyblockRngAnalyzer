@@ -4,7 +4,6 @@ import java.util.Map.Entry;
 
 import me.hyblockrnganalyzer.Main;
 import me.hyblockrnganalyzer.event.OpenCustomChestEvent;
-import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -37,6 +36,6 @@ public class DungeonChestEventHandler {
 		for (Entry e : event.getChestContentsSummary().entrySet())
 			sb.append(e.getKey() + ":" + e.getValue() + ",");
 		main.getDungeonChestStatus().setStatusSaved(chestType);
-		main.addDataset(sb.toString() + "\n", 4);
+		main.getTxtDatabase().addDataset(sb.toString() + "\n", 4);
 	}
 }
