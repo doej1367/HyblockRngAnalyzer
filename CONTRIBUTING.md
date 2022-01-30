@@ -11,34 +11,36 @@
 2. Install `Java Development Kit 8`
 3. Install `Eclipse for Java` - wait with starting it
 ### Part 2 - Operating System Configuration
-1. Set an environment variable under `Win` + `Break` > `Advances System Settings` > `Environment Variables` 
+4. Set an environment variable under `Win` + `Break` > `Advances System Settings` > `Environment Variables` 
     - Add a `JAVA_HOME` variable in the top part of the window with the value of your `jdk 8` folder path
     - Add the `jdk 8 \ bin` folder path to the `Path` variable in the bottom part of the window
         - The `jdk 8` folder path should look something like this: `C:\Program Files\Java\jdk1.8.0_311`
-### Part 3 - Forge MDK: How to setup an eclipse workspace
-1. Download and Extract the `Forge 1.8.9 MDK`
-2. Copy the contents to a folder you like to work from
-3. Open the command line (cmd) and navigate to that folder using `cd <your folder path>`
-    - you can change drives using e.g. `C:`, `D:`, `E:`, etc.
-4. Setup the Eclipse development environment by typing `gradlew setupDecompWorkspace eclipse`
-5. Start `Eclipse`
-6. Select `<your folder path>\Modding Workspace\eclipse` as eclipse workspace
-7. Switch to Dark Mode if you like: `Window > Preferences > General > Appearance > Theme: Dark`
-
-// TODO merge forge dev env setup with this git repo
-
-## Getting Started
-2. Log into github
-3. Fork this repository
-4. Clone the project to your local machine 
+### Part 3 - Fork and clone this github project
+5. Log into github
+6. Fork this repository
+7. Clone the forked project to your local machine 
     - git command, Eclipse or some GUI (I for example used SourceTree)
-5. Import the projekt into Eclipse
-6. (Wait for the project to fully load)
-7. Make your changes
-8. Rightclick your Forge project in eclipse and go to `Show in > Terminal`
-9. Build the projects jar file with `gradlew build`
-10. Once you are you are happy with your result, you can commit and push everything to a new branch of your forked project
-11. If you want to create a pull request you can do that on the github page of your forked project
+### Part 4 - Forge MDK: How to setup the eclipse workspace
+8. Download and Extract the `Forge 1.8.9 MDK`
+9. Copy the `eclipse` folder to the folder you cloned this project into
+10. Open the command line (cmd) 
+11. Navigate to that folder you cloned this project into using `cd <your folder path>`
+    - Tip: you can change drives using e.g. `C:`, `D:`, `E:`, etc.
+12. Setup the Eclipse development environment by typing `gradlew setupDecompWorkspace eclipse`
+13. Start `Eclipse`
+14. Select `<your folder path>\Modding Workspace\eclipse` as eclipse workspace
+15. Switch to Dark Mode if you like: `Window > Preferences > General > Appearance > Theme: Dark`
+### Part 5 - Build the mod to a .jar file
+16. Rightclick your Forge project in eclipse and go to `Show in > Terminal`
+17. Build the projects jar file with `gradlew build`
+### Part 6 - Git branch
+18. Create a new branch and switch to it
+    - git command, Eclipse or some GUI (e.g. SourceTree)
+### Part 7 - The coding
+19. Now you are all set. You can read a little bit about the structure of this Forge mod down below, start changing things, test your changes by building the mod and putting the jar in the mod folder (sadly the multiplayer testing environment is broken due to the new Mirosoft login changes), commit and push to your new branch and in the next step when you are all set, create a pull request.
+### Part 8 - Contribute to this project
+20. Once you are you are happy with your result, you can commit and push everything to a new branch of your forked project
+21. If you want to create a pull request you can do that on the github page of your forked project
     - github automatically offers you that option once you've made changes to your forked project
 
 ## An introduction to the structure of this Forge mod
