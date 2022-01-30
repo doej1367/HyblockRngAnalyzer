@@ -14,6 +14,13 @@
     - Add the `jdk 8 \ bin` folder path to the `Path` variable in the bottom part of the window
         - The `jdk 8` folder path should look something like this: `C:\Program Files\Java\jdk1.8.0_311`
 5. Download and Extract the `Forge 1.8.9 MDK`
+6. Copy the contents to a folder you like to work from
+7. Open the command line (cmd) and navigate to that folder using `cd <your folder path>`
+    - you can change drives using e.g. `C:`, `D:`, `E:`, etc.
+9. Setup the Eclipse development environment by typing `gradlew setupDecompWorkspace eclipse`
+10. Start `Eclipse`
+11. Select `<your folder path>\Modding Workspace\eclipse` as eclipse workspace
+12. Switch to Dark Mode if you like: `Window > Preferences > General > Appearance > Theme: Dark`
 
 // TODO merge forge setup with this git repo
 
