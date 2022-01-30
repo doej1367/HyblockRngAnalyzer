@@ -56,7 +56,7 @@ Commands are found in `me.hyblockrnganalyzer.command`. One of those would be the
 
 `me.hyblockrnganalyzer.util` contains all sorts of Java files that provide some kind of - more or less universal - functionality. Some also provide functionality used in more than one event like the `HypixelEntityExtractor` that extracts and summarizes the stacked armor stands Hypixel - among other servers - likes so much. Others like the `DungeonChestStatus` are more specific to one event.
 
-## Sources:
+## Sources
 - for the step by step setup guide
     - [Hypixel Forum Post](https://hypixel.net/threads/guide-how-to-start-create-coding-minecraft-forge-mods.551741/#post-5352380)
     - [German Youtube Tutorial](https://www.youtube.com/watch?v=6YS-ExDnrjg) 
