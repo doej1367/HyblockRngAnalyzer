@@ -1,4 +1,4 @@
-# Contributing to HyblockRngAnalyzer [WIP]
+# Contributing to HyblockRngAnalyzer
 
 ## Required Software
 - [Java Development Kit 8](https://www.oracle.com/java/technologies/downloads/#java8-windows) (latest version)
