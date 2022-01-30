@@ -4,9 +4,9 @@ import me.hyblockrnganalyzer.Main;
 import me.hyblockrnganalyzer.event.GiftOpenedEvent;
 import me.hyblockrnganalyzer.util.GiftLocation;
 import me.hyblockrnganalyzer.util.GiftLocationList;
+import me.hyblockrnganalyzer.util.HorizontalPlane;
 import me.hyblockrnganalyzer.util.HypixelEntityExtractor;
 import me.hyblockrnganalyzer.util.StackedArmorStand;
-import me.hyblockrnganalyzer.util.Vec2;
 import net.minecraft.util.Vec3;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
@@ -38,7 +38,7 @@ public class GiftEventHandler {
 		} else if (event.getSoundEvent().name.equalsIgnoreCase("random.explode")) {
 			GiftLocation closestGiftLocation = null;
 			for (GiftLocation g : giftTypeAtPosition)
-				if (g != null && Vec2.distanceBetween(g.getPos(), v) < 0.1)
+				if (g != null && HorizontalPlane.distanceBetween(g.getPos(), v) < 0.1)
 					closestGiftLocation = g;
 			final int giftType = closestGiftLocation != null ? closestGiftLocation.getGiftType() : -1;
 			final String tmp_loot = closestGiftLocation != null ? closestGiftLocation.getGiftReward() : null;
@@ -75,7 +75,8 @@ public class GiftEventHandler {
 
 	private StackedArmorStand getClosestArmorStand(Vec3 position) {
 		for (StackedArmorStand s : HypixelEntityExtractor.extractStackedArmorStands(position, 3.0d, false))
-			if (s != null && Vec2.distanceBetween(s.getPos(), position) < 0.1 && (hasGiftReward(s) || hasGiftType(s)))
+			if (s != null && HorizontalPlane.distanceBetween(s.getPos(), position) < 0.1
+					&& (hasGiftReward(s) || hasGiftType(s)))
 				return s;
 		return null;
 	}

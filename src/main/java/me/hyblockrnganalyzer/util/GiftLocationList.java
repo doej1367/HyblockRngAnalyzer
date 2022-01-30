@@ -9,7 +9,7 @@ public class GiftLocationList extends ArrayList<GiftLocation> {
 	@Override
 	public boolean add(GiftLocation element) {
 		for (GiftLocation g : this)
-			if (Vec2.distanceBetween(g.getPos(), element.getPos()) < 0.1) {
+			if (HorizontalPlane.distanceBetween(g.getPos(), element.getPos()) < 0.1) {
 				if (element.getGiftReward() != null)
 					g.setGiftReward(element.getGiftReward());
 				if (element.getGiftType() >= 0)

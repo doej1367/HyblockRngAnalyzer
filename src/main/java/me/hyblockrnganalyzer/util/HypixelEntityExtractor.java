@@ -28,7 +28,7 @@ public class HypixelEntityExtractor {
 			for (Entity e : entities) {
 				if (e instanceof EntityArmorStand) {
 					Vec3 v = e.getPositionVector();
-					if (position != null && (horizontalDistance ? Vec2.distanceBetween(position, v) > d
+					if (position != null && (horizontalDistance ? HorizontalPlane.distanceBetween(position, v) > d
 							: (position.distanceTo(v) > d)))
 						continue;
 					String displayName = ((EntityArmorStand) e).getDisplayName().getUnformattedText();
