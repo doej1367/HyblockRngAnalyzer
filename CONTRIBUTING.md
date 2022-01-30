@@ -14,7 +14,8 @@
     - Add the `jdk 8 \ bin` folder path to the `Path` variable in the bottom part of the window
         - The `jdk 8` folder path should look something like this: `C:\Program Files\Java\jdk1.8.0_311`
 5. Download and Extract the `Forge 1.8.9 MDK`
-// TODO merge forge with this git repo
+
+// TODO merge forge setup with this git repo
 
 ## Getting Started
 2. Log into github
