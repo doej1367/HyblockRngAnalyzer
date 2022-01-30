@@ -37,3 +37,17 @@
 10. Once you are you are happy with your result, you can commit and push everything to a new branch of your forked project
 11. If you want to create a pull request you can do that on the github page of your forked project
     - github automatically offers you that option once you've made changes to your forked project
+
+## An introduction to the structure of this Forge mod
+The main Java class is logically `me.hyblockrnganalyzer.Main`. Here the initial functions executed on startup initialisation of the mod are defined. The key part here is what happens in the handling of the `FMLInitializationEvent`. Here commands using `ClientCommandHandler.instance.registerCommand()` and event handlers using `MinecraftForge.EVENT_BUS.register()` are registered.
+
+The core event handler is the `me.hyblockrnganalyzer.HypixelEventHandler`. This one subscibes to standard Forge events like `ClientChatReceivedEvent`, `GuiScreenEvent.InitGuiEvent.Post`, `PlaySoundEvent`. If these events fulfill special criteria, they are used to trigger custom events listed in `me.hyblockrnganalyzer.event` using `MinecraftForge.EVENT_BUS.post()`.
+
+Custom event handlers in `me.hyblockrnganalyzer.eventhandler` then subscribe to these custom events like e.g. `NucleusLootEvent` or `OpenCustomChestEvent`.
+
+Finally the data contained in these events gets extracted, parsed and put into one of the files.
+
+Commands are found in `me.hyblockrnganalyzer.command`. One of those would be the `CsvFileCreationCommand` which when triggered creates csv files fom the txt ones.
+
+`me.hyblockrnganalyzer.util` contains all sorts of Java files that provide some kind of - more or less universal - functionality. Some also provide functionality used in more than one event like the `HypixelEntityExtractor` that extracts and summarizes the stacked armor stands Hypixel - among other servers - likes so much. Others like the `DungeonChestStatus` are more specific to one event.
+
