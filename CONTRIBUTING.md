@@ -39,11 +39,11 @@
     - github automatically offers you that option once you've made changes to your forked project
 
 ## An introduction to the structure of this Forge mod
-The main Java class is logically `me.hyblockrnganalyzer.Main`. Here the initial functions executed on startup initialisation of the mod are defined. The key part here is what happens in the handling of the `FMLInitializationEvent`. Here commands using `ClientCommandHandler.instance.registerCommand()` and event handlers using `MinecraftForge.EVENT_BUS.register()` are registered.
+The main Java class is logically `me.hyblockrnganalyzer.Main`. Here the initial functions executed on startup / initialisation of the mod are defined. The key part is what is in `public void init(FMLInitializationEvent event)`. Here commands - using `ClientCommandHandler.instance.registerCommand()` - and event handlers - using `MinecraftForge.EVENT_BUS.register()` - are registered.
 
 The core event handler is the `me.hyblockrnganalyzer.HypixelEventHandler`. This one subscibes to standard Forge events like `ClientChatReceivedEvent`, `GuiScreenEvent.InitGuiEvent.Post`, `PlaySoundEvent`. If these events fulfill special criteria, they are used to trigger custom events listed in `me.hyblockrnganalyzer.event` using `MinecraftForge.EVENT_BUS.post()`.
 
-Custom event handlers in `me.hyblockrnganalyzer.eventhandler` then subscribe to these custom events like e.g. `NucleusLootEvent` or `OpenCustomChestEvent`.
+Custom event handlers in `me.hyblockrnganalyzer.eventhandler` then subscribe to these custom events like the `NucleusLootEvent` or the `OpenCustomChestEvent`.
 
 Finally the data contained in these events gets extracted, parsed and put into one of the files.
 
