@@ -6,21 +6,24 @@
 - [Eclipse](https://www.eclipse.org/downloads/) for Java
 
 ## Setup Forge Development Environment (steps for Windows)
+### Part 1 - Software Installations
 1. Install `Minecraft` - if you haven't already
 2. Install `Java Development Kit 8`
 3. Install `Eclipse for Java` - wait with starting it
-4. Set an environment variable under `Win` + `Break` > `Advances System Settings` > `Environment Variables` 
+### Part 2 - Operating System Configuration
+1. Set an environment variable under `Win` + `Break` > `Advances System Settings` > `Environment Variables` 
     - Add a `JAVA_HOME` variable in the top part of the window with the value of your `jdk 8` folder path
     - Add the `jdk 8 \ bin` folder path to the `Path` variable in the bottom part of the window
         - The `jdk 8` folder path should look something like this: `C:\Program Files\Java\jdk1.8.0_311`
-5. Download and Extract the `Forge 1.8.9 MDK`
-6. Copy the contents to a folder you like to work from
-7. Open the command line (cmd) and navigate to that folder using `cd <your folder path>`
+### Part 3 - Forge MDK: How to setup an eclipse workspace
+1. Download and Extract the `Forge 1.8.9 MDK`
+2. Copy the contents to a folder you like to work from
+3. Open the command line (cmd) and navigate to that folder using `cd <your folder path>`
     - you can change drives using e.g. `C:`, `D:`, `E:`, etc.
-9. Setup the Eclipse development environment by typing `gradlew setupDecompWorkspace eclipse`
-10. Start `Eclipse`
-11. Select `<your folder path>\Modding Workspace\eclipse` as eclipse workspace
-12. Switch to Dark Mode if you like: `Window > Preferences > General > Appearance > Theme: Dark`
+4. Setup the Eclipse development environment by typing `gradlew setupDecompWorkspace eclipse`
+5. Start `Eclipse`
+6. Select `<your folder path>\Modding Workspace\eclipse` as eclipse workspace
+7. Switch to Dark Mode if you like: `Window > Preferences > General > Appearance > Theme: Dark`
 
 // TODO merge forge dev env setup with this git repo
 
