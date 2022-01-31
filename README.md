@@ -30,16 +30,16 @@ Here are a few things you could try to implement:
     - `Trick Or Treat Chest` (drops)
     - `Cake Souls` (cake type, soul drop yes/no)
     - `Slayer` (boss type, drops)
-- Complicated chest menu related trackers for
-    - `Farming Event` (crop type, minimum crops needed for medals)
-    - `Experiments` (type, possible drops)
-- Complicated armor stand related trackers for
+- More complicated armor stand related trackers for
     - `Dragon` (summoning eyes placed, damage position, drops)
     - `Endstone Protector` (zealot kills, damage, drops)
     - `Magma Boss` (damage position, drops)
     - `Bal` (drops)
     - `Rat` (spawn location, server time)
     - `Broodmother` (spawn location, server time)
+- Complicated chest menu related trackers for
+    - `Farming Event` (crop type, minimum crops needed for medals)
+    - `Experiments` (type, possible drops)
 - Complicated dropped item related trackers for
     - `Gulliver's Chicken` (drops)
     - `Glowing Block` (drops)
