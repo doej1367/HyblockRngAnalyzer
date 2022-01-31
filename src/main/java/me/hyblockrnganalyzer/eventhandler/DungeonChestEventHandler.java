@@ -9,10 +9,12 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class DungeonChestEventHandler {
+	private String fileName = "databaseDungeons.txt";
 	private Main main;
 
 	public DungeonChestEventHandler(Main main) {
 		this.main = main;
+		main.getTxtDatabase().addFileName(fileName);
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -36,6 +38,6 @@ public class DungeonChestEventHandler {
 		for (Entry e : event.getChestContentsSummary().entrySet())
 			sb.append(e.getKey() + ":" + e.getValue() + ",");
 		main.getDungeonChestStatus().setStatusSaved(chestType);
-		main.getTxtDatabase().addDataset(sb.toString() + "\n", 4);
+		main.getTxtDatabase().addDataset(sb.toString() + "\n", fileName);
 	}
 }

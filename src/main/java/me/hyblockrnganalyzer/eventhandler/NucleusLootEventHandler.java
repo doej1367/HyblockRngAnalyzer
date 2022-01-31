@@ -12,10 +12,12 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class NucleusLootEventHandler {
+	private String fileName = "databaseNucleusLoot.txt";
 	private Main main;
 
 	public NucleusLootEventHandler(Main main) {
 		this.main = main;
+		main.getTxtDatabase().addFileName(fileName);
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -45,7 +47,7 @@ public class NucleusLootEventHandler {
 				StringBuilder sb = new StringBuilder();
 				for (Entry<String, Integer> e : event.getArmorStandContentsSummary().entrySet())
 					sb.append(e.getKey() + ":" + e.getValue() + ",");
-				main.getTxtDatabase().addDataset(sb.toString() + "\n", 2);
+				main.getTxtDatabase().addDataset(sb.toString() + "\n", fileName);
 				Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText("Loot is recorded!"));
 			};
 		}.start();

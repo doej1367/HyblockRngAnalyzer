@@ -13,11 +13,13 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class GiftEventHandler {
+	private String fileName = "databaseGifts.txt";
 	private Main main;
 	private static GiftLocationList giftTypeAtPosition = new GiftLocationList();
 
 	public GiftEventHandler(Main main) {
 		this.main = main;
+		main.getTxtDatabase().addFileName(fileName);
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -66,7 +68,8 @@ public class GiftEventHandler {
 					} else
 						name = loot;
 					if (name != null && !name.isEmpty() && giftType >= 0)
-						main.getTxtDatabase().addDataset("_giftType:" + giftType + "," + name + ":" + count + "\n", 5);
+						main.getTxtDatabase().addDataset("_giftType:" + giftType + "," + name + ":" + count + "\n",
+								fileName);
 					giftTypeAtPosition.cleanup();
 				}
 			}.start();

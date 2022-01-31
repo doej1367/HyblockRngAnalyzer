@@ -22,11 +22,17 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 public class TxtDatabase {
 	private File logFolder;
-	public String[] logFileNames = { "databaseTreasureChest.txt", "databaseLootChest.txt", "databaseNucleusLoot.txt",
-			"databaseJerryBoxes.txt", "databaseDungeons.txt", "databaseGifts.txt" };
+	private ArrayList<String> logFileNames = new ArrayList<String>();
 
-	public void createFiles(FMLPreInitializationEvent event) {
+	public void setFolder(FMLPreInitializationEvent event) {
 		logFolder = event.getModConfigurationDirectory();
+	}
+
+	public void addFileName(String name) {
+		logFileNames.add(name);
+	}
+
+	public void createFiles() {
 		for (String name : logFileNames)
 			createFile(name);
 	}
@@ -44,8 +50,8 @@ public class TxtDatabase {
 		}
 	}
 
-	public void addDataset(String dataset, int fileNumber) {
-		File file = new File(new File(logFolder, Main.MODID), logFileNames[fileNumber]);
+	public void addDataset(String dataset, String fileName) {
+		File file = new File(new File(logFolder, Main.MODID), fileName);
 		if (file.exists()) {
 			try {
 				BufferedWriter writer = new BufferedWriter(

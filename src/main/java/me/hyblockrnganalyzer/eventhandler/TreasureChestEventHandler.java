@@ -9,10 +9,14 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class TreasureChestEventHandler {
+	private String fileName0 = "databaseTreasureChest.txt";
+	private String fileName1 = "databaseLootChest.txt";
 	private Main main;
 
 	public TreasureChestEventHandler(Main main) {
 		this.main = main;
+		main.getTxtDatabase().addFileName(fileName0);
+		main.getTxtDatabase().addFileName(fileName1);
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -25,8 +29,8 @@ public class TreasureChestEventHandler {
 		for (Entry e : event.getChestContentsSummary().entrySet())
 			sb.append(e.getKey() + ":" + e.getValue() + ",");
 		if (chestName.contains("Treasure Chest"))
-			main.getTxtDatabase().addDataset(sb.toString() + "\n", 0);
+			main.getTxtDatabase().addDataset(sb.toString() + "\n", fileName0);
 		else if (chestName.contains("Loot Chest"))
-			main.getTxtDatabase().addDataset(sb.toString() + "\n", 1);
+			main.getTxtDatabase().addDataset(sb.toString() + "\n", fileName1);
 	}
 }

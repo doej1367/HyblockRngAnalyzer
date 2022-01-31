@@ -7,17 +7,19 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class JerryBoxEventHandler {
-
+	private String fileName = "databaseJerryBoxes.txt";
 	private Main main;
 
 	public JerryBoxEventHandler(Main main) {
 		this.main = main;
+		main.getTxtDatabase().addFileName(fileName);
 	}
 
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent
 	public void onJerryBox(JerryBoxOpenedEvent event) {
 		main.getTxtDatabase().addDataset(
-				"_boxType:" + event.getBoxTypeNumber() + "," + event.getName() + ":" + event.getCount() + "\n", 3);
+				"_boxType:" + event.getBoxTypeNumber() + "," + event.getName() + ":" + event.getCount() + "\n",
+				fileName);
 	}
 }

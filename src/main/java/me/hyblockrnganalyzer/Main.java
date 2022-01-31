@@ -27,7 +27,7 @@ public class Main {
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
-		txtDatabase.createFiles(event);
+		txtDatabase.setFolder(event);
 		System.out.println("[OK] preInit Hyblock RNG Analyzer");
 	}
 
@@ -45,6 +45,7 @@ public class Main {
 		MinecraftForge.EVENT_BUS.register(new GiftEventHandler(this));
 		// TODO (placeholder for more event handlers)
 
+		txtDatabase.createFiles();
 		System.out.println("[OK] registered events");
 		System.out.println("[OK] init Hyblock RNG Analyzer");
 	}
