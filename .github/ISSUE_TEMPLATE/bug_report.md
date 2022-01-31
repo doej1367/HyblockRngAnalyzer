@@ -20,8 +20,8 @@ Steps to reproduce the behavior:
 **Expected behavior**
 A clear and concise description of what you expected to happen.
 
-**Screenshots / Minecraft Logs**
-If applicable, add screenshots and Minecraft Logs to help explain your problem.
+**Screenshots / Minecraft logs**
+If applicable, add screenshots and Minecraft logs to help explain your problem.
 
 **Desktop (please complete the following information):**
  - OS: [e.g. Windows. macOS, Linux]
