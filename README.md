@@ -18,6 +18,5 @@ with the goal to figure out as many drop chances as possible for the wiki.
     - `C:\Users\User\AppData\Roaming\.minecraft\config\hyblockrnganalyzer\`
 
 ## How to contribute to this mod
-- [Contributing Manual](CONTRIBUTING.md) with a step by step setup guide for the development environment  
-and a brief introduction on how this mod is structured and its inner workings
-- In case you need some inspiration on what to contribute, here is a [list of ideas](https://github.com/doej1367/HyblockRngAnalyzer/discussions/1#discussion-3846005).
+- [Contributing Manual](CONTRIBUTING.md) with a step by step setup guide for the development environment 
+and a brief introduction on how this mod is structured and its inner workings. In case you need some inspiration on what to contribute, here is a [list of ideas](https://github.com/doej1367/HyblockRngAnalyzer/discussions/1#discussion-3846005).
