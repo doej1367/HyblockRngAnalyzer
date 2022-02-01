@@ -33,6 +33,7 @@
 ### Part 5 - Build the mod to a .jar file
 16. Rightclick your Forge project in eclipse and go to `Show in > Terminal`
 17. Build the projects jar file with `gradlew build`
+    - the jar file can be found under `build \ libs`
 ### Part 6 - Git branch
 18. Create a new branch and switch to it
     - git command, Eclipse or some GUI (e.g. SourceTree)
