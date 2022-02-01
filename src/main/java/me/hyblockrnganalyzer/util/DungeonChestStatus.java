@@ -27,7 +27,8 @@ public class DungeonChestStatus {
 	public void setRerolled() {
 		long lastReroll = timestampLastReroll;
 		timestampLastReroll = System.currentTimeMillis();
-		if (timestampLastReroll - lastReroll > 1000 && timestampLastReroll - timestampDungeonLoot < 1000 * 60 * 5)
+		if (timestampLastReroll - lastReroll > 1000 && timestampLastReroll - timestampDungeonLoot < 1000 * 60 * 5
+				&& dungeonChestLastOpened >= 0)
 			dungeonChestStates[dungeonChestLastOpened] = 2;
 	}
 
