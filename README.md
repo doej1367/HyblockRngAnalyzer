@@ -12,6 +12,9 @@ with the goal to figure out as many drop chances as possible for the wiki.
 - `/open` command to open the folder containing all the database files
 - `/csv` command to create more readable csv files from the database txt files
 
+## Discord
+- As a collection station for all the created txt files there is a [Discord server](https://discord.gg/mA3aBuPwcd)
+
 ## How to intall and use this mod
 - Make sure [Forge 1.8.9](https://files.minecraftforge.net/net/minecraftforge/forge/index_1.8.9.html) is installed
 - Download the latest `.jar` file from the [releases](https://github.com/doej1367/HyblockRngAnalyzer/releases) and put it into your mod folder
