@@ -21,11 +21,21 @@ import me.hyblockrnganalyzer.Main;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 public class TxtDatabase {
+	private Main main;
 	private File logFolder;
 	private ArrayList<String> logFileNames = new ArrayList<String>();
 
+	public TxtDatabase(Main main) {
+		this.main = main;
+	}
+
+	public File getFolder() {
+		return logFolder;
+	}
+
 	public void setFolder(FMLPreInitializationEvent event) {
-		logFolder = event.getModConfigurationDirectory();
+		logFolder = new File(event.getModConfigurationDirectory(), Main.MODID);
+		logFolder.mkdirs();
 	}
 
 	public void addFileName(String name) {
@@ -39,9 +49,7 @@ public class TxtDatabase {
 
 	private void createFile(String name) {
 		try {
-			File dir = new File(logFolder, Main.MODID);
-			dir.mkdirs();
-			File file = new File(dir, name);
+			File file = new File(logFolder, name);
 			if (!file.exists())
 				file.createNewFile();
 			System.out.println("database file: " + file.getAbsolutePath());
@@ -51,11 +59,13 @@ public class TxtDatabase {
 	}
 
 	public void addDataset(String dataset, String fileName) {
-		File file = new File(new File(logFolder, Main.MODID), fileName);
+		File file = new File(logFolder, fileName);
 		if (file.exists()) {
 			try {
 				BufferedWriter writer = new BufferedWriter(
 						new OutputStreamWriter(new FileOutputStream(file, true), StandardCharsets.UTF_8));
+				writer.append("_timestamp:" + System.currentTimeMillis() + ",_lobby:"
+						+ main.getLobbyStatus().getServer() + ",");
 				writer.append(dataset);
 				writer.close();
 			} catch (IOException e) {
@@ -65,8 +75,8 @@ public class TxtDatabase {
 
 	public void allToCsv() {
 		for (String name : logFileNames) {
-			File txtFile = new File(new File(logFolder, Main.MODID), name);
-			File csvFile = new File(new File(logFolder, Main.MODID), name.split("\\.")[0] + ".csv");
+			File txtFile = new File(logFolder, name);
+			File csvFile = new File(logFolder, name.split("\\.")[0] + ".csv");
 			if (!csvFile.exists())
 				try {
 					csvFile.createNewFile();
@@ -74,7 +84,7 @@ public class TxtDatabase {
 				}
 			if (txtFile.exists() && csvFile.exists()) {
 				try {
-					ArrayList<TreeMap<String, Integer>> data = new ArrayList<TreeMap<String, Integer>>();
+					ArrayList<TreeMap<String, String>> data = new ArrayList<TreeMap<String, String>>();
 					TreeSet<String> items = new TreeSet<String>();
 					BufferedReader reader = new BufferedReader(
 							new InputStreamReader(new FileInputStream(txtFile), StandardCharsets.UTF_8));
@@ -82,11 +92,11 @@ public class TxtDatabase {
 					while ((line = reader.readLine()) != null) {
 						if (line.isEmpty())
 							continue;
-						TreeMap<String, Integer> tm = new TreeMap<String, Integer>();
+						TreeMap<String, String> tm = new TreeMap<String, String>();
 						for (String s : line.split(",")) {
-							if (s.isEmpty() || !s.contains(":") || !s.split(":")[1].matches("[0-9]+"))
+							if (s.isEmpty() || !s.contains(":") || s.split(":")[1].length() <= 0)
 								continue;
-							tm.put(s.split(":")[0], Integer.parseInt(s.split(":")[1]));
+							tm.put(s.split(":")[0], s.split(":")[1]);
 							items.add(s.split(":")[0]);
 						}
 						data.add(tm);
@@ -100,10 +110,10 @@ public class TxtDatabase {
 					for (String item : itemList)
 						writer.append((first ? ((first = false) ? "" : "") : ",") + item);
 					writer.append("\n");
-					for (TreeMap<String, Integer> tm : data) {
+					for (TreeMap<String, String> tm : data) {
 						first = true;
 						for (String item : itemList)
-							writer.append((first ? ((first = false) ? "" : "") : ",") + tm.getOrDefault(item, 0));
+							writer.append((first ? ((first = false) ? "" : "") : ",") + tm.getOrDefault(item, "0"));
 						writer.append("\n");
 					}
 					writer.close();

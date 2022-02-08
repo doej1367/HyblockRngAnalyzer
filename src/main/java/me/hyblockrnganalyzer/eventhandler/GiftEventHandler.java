@@ -46,6 +46,7 @@ public class GiftEventHandler {
 			final String tmp_loot = closestGiftLocation != null ? closestGiftLocation.getGiftReward() : null;
 			final StackedArmorStand tmp = closestArmorStand;
 			new Thread() {
+				@Override
 				public void run() {
 					String loot = tmp_loot != null ? tmp_loot : "";
 					StackedArmorStand closestArmorStand = tmp;

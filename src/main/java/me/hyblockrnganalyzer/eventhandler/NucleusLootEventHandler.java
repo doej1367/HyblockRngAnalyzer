@@ -34,7 +34,7 @@ public class NucleusLootEventHandler {
 					if ((System.currentTimeMillis() - timestamp) > (1000 * 60 * 3)) {
 						// cancel after 3 minutes
 						Minecraft.getMinecraft().thePlayer
-								.addChatMessage(new ChatComponentText("Loot recording canceled!"));
+								.addChatMessage(new ChatComponentText("RNG Analyzer > Loot recording canceled!"));
 						return;
 					}
 					try {
@@ -48,8 +48,8 @@ public class NucleusLootEventHandler {
 				for (Entry<String, Integer> e : event.getArmorStandContentsSummary().entrySet())
 					sb.append(e.getKey() + ":" + e.getValue() + ",");
 				main.getTxtDatabase().addDataset(sb.toString() + "\n", fileName);
-				Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText("Loot is recorded!"));
-			};
+				Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText("RNG Analyzer > Loot is recorded!"));
+			}
 		}.start();
 	}
 }

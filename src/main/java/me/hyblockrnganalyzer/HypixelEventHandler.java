@@ -48,7 +48,12 @@ public class HypixelEventHandler {
 		String plainText = text.replaceAll("\\u00a7.", "").trim();
 		if (plainText.length() < 3)
 			return;
-		if (plainText.substring(1).startsWith(" ") && ((plainText.contains(" found ") && plainText
+		if (plainText.trim().matches("Sending to server (mini|mega)[0-9]+[A-Z]\\.\\.\\."))
+			main.getLobbyStatus().setServer(plainText.trim().replaceAll("\\.", "").split(" ")[3]);
+		else if (plainText.trim().matches("Something went wrong trying to send you to that server!"
+				+ " If this keeps happening please report it! \\((mini|mega)[0-9]+[A-Z]\\)"))
+			main.getLobbyStatus().setServerChangeFailed(plainText.trim().replaceAll("\\)", "").split("\\(")[1]);
+		else if (plainText.substring(1).startsWith(" ") && ((plainText.contains(" found ") && plainText
 				.contains(Minecraft.getMinecraft().thePlayer.getDisplayNameString().replaceAll("\\u00a7.", "")))
 				|| plainText.contains(" claimed ")) && plainText.endsWith(" Jerry Box!"))
 			MinecraftForge.EVENT_BUS.post(new JerryBoxOpenedEvent(jerryBoxType, plainText.trim()));
