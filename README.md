@@ -9,6 +9,7 @@ with the goal to figure out as many drop chances as possible for the wiki.
     - `Jerry Box` contents
     - `Dungeon Chest` contents
     - `Gift` rewards
+- `/open` command to open the folder containing all the database files
 - `/csv` command to create more readable csv files from the database txt files
 
 ## How to intall and use this mod
