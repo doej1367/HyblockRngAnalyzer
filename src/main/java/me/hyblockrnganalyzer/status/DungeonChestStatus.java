@@ -1,4 +1,4 @@
-package me.hyblockrnganalyzer.util;
+package me.hyblockrnganalyzer.status;
 
 public class DungeonChestStatus {
 	private int floor;

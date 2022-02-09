@@ -8,12 +8,10 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiChest;
 import net.minecraft.inventory.ContainerChest;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.client.event.sound.PlaySoundEvent;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -41,6 +39,10 @@ public class HypixelEventHandler {
 		else if (plainText.trim().matches("Something went wrong trying to send you to that server!"
 				+ " If this keeps happening please report it! \\((mini|mega)[0-9]+[A-Z]\\)"))
 			main.getLobbyStatus().setServerChangeFailed(plainText.trim().replaceAll("\\)", "").split("\\(")[1]);
+		if (plainText.substring(1).startsWith(" ") && ((plainText.contains(" found ") && plainText
+				.contains(Minecraft.getMinecraft().thePlayer.getDisplayNameString().replaceAll("\\u00a7.", "")))
+				|| plainText.contains(" claimed ")) && plainText.endsWith(" Jerry Box!"))
+			MinecraftForge.EVENT_BUS.post(new JerryBoxOpenedEvent(plainText.trim()));
 		else if (plainText.startsWith("The Catacombs - Floor"))
 			main.getDungeonChestStatus().resetDungeonChestStatus(plainText.split("Floor ")[1], false);
 		else if (plainText.startsWith("Master Mode Catacombs - Floor "))

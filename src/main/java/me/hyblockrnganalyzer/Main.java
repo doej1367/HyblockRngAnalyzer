@@ -8,8 +8,9 @@ import me.hyblockrnganalyzer.eventhandler.GiftEventHandler;
 import me.hyblockrnganalyzer.eventhandler.JerryBoxEventHandler;
 import me.hyblockrnganalyzer.eventhandler.NucleusLootEventHandler;
 import me.hyblockrnganalyzer.eventhandler.TreasureChestEventHandler;
-import me.hyblockrnganalyzer.util.DungeonChestStatus;
-import me.hyblockrnganalyzer.util.LobbyStatus;
+import me.hyblockrnganalyzer.status.DungeonChestStatus;
+import me.hyblockrnganalyzer.status.JerryBoxStatus;
+import me.hyblockrnganalyzer.status.LobbyStatus;
 import me.hyblockrnganalyzer.util.TxtDatabase;
 import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.common.MinecraftForge;
@@ -27,12 +28,14 @@ public class Main {
 	private TxtDatabase txtDatabase;
 	private LobbyStatus lobbyStatus;
 	private DungeonChestStatus dungeonChestStatus;
+	private JerryBoxStatus jerryBoxStatus;
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		txtDatabase = new TxtDatabase(this);
 		lobbyStatus = new LobbyStatus();
 		dungeonChestStatus = new DungeonChestStatus();
+		jerryBoxStatus = new JerryBoxStatus();
 		txtDatabase.setFolder(event);
 		System.out.println("[OK] preInit Hyblock RNG Analyzer");
 	}
@@ -72,5 +75,9 @@ public class Main {
 
 	public DungeonChestStatus getDungeonChestStatus() {
 		return dungeonChestStatus;
+	}
+
+	public JerryBoxStatus getJerryBoxStatus() {
+		return jerryBoxStatus;
 	}
 }
