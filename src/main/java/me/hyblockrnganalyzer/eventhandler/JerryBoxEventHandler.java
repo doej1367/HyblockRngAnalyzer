@@ -11,8 +11,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.Map;
-
 public class JerryBoxEventHandler {
 	private String fileName = "databaseJerryBoxes.txt";
 	private Main main;
@@ -51,6 +49,7 @@ public class JerryBoxEventHandler {
 			itemName = itemName.replaceAll("\\u00a7.", "");
 			if (itemName.endsWith("Jerry Box")) {
 				jerryBoxType = itemName.split(" ")[0];
+				break;
 			}
 		}
 	}
@@ -61,9 +60,5 @@ public class JerryBoxEventHandler {
 		main.getTxtDatabase().addDataset(
 				"_boxType:" + event.getBoxTypeNumber() + "," + event.getName() + ":" + event.getCount() + "\n",
 				fileName);
-	}
-
-	public String getJerryBoxType() {
-		return jerryBoxType;
 	}
 }
