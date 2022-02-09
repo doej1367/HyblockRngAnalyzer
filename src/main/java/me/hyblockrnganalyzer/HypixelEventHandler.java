@@ -14,6 +14,7 @@ import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.client.event.MouseEvent;
 import net.minecraftforge.client.event.sound.PlaySoundEvent;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -28,9 +29,7 @@ public class HypixelEventHandler {
 
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent()
-	public void onInteract(MouseEvent e) {
-		if (e.button < 0 || e.button > 1 || e.buttonstate)
-			return;
+	public void onInteract(PlayerInteractEvent e) {
 		ItemStack heldItem = Minecraft.getMinecraft().thePlayer.getHeldItem();
 		// JerryBoxOpenEvent
 		if (heldItem != null && heldItem.getDisplayName().replaceAll("\\u00a7.", "").endsWith(" Jerry Box"))
