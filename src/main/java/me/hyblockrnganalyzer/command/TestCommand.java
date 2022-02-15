@@ -1,5 +1,7 @@
 package me.hyblockrnganalyzer.command;
 
+import me.hyblockrnganalyzer.util.HypixelEntityExtractor;
+import me.hyblockrnganalyzer.util.StackedArmorStand;
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
@@ -21,6 +23,10 @@ public class TestCommand extends CommandBase {
 	@Override
 	public void processCommand(ICommandSender sender, String[] args) throws CommandException {
 		// TODO (placeholder for testing something)
+		for (StackedArmorStand s : HypixelEntityExtractor
+				.extractStackedArmorStands(Minecraft.getMinecraft().thePlayer.getPositionVector(), 5, false))
+			if (s.getInv().size() > 0)
+				System.out.println(s.getInv().get(0).getDisplayName() + " " + s.getInv().get(0).getTagCompound());
 		Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText("TestCommand"));
 	}
 

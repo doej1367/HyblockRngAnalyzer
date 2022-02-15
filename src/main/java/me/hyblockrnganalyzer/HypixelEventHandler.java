@@ -34,7 +34,7 @@ public class HypixelEventHandler {
 		String plainText = text.replaceAll("\\u00a7.", "").trim();
 		if (plainText.length() < 3)
 			return;
-		if (plainText.trim().matches("Sending to server (mini|mega)[0-9]+[A-Z]\\.\\.\\."))
+		if (plainText.trim().matches("Sending to server (mini|mega)[0-9]+[A-Z]+\\.\\.\\."))
 			main.getLobbyStatus().setServer(plainText.trim().replaceAll("\\.", "").split(" ")[3]);
 		else if (plainText.trim().matches("Something went wrong trying to send you to that server!"
 				+ " If this keeps happening please report it! \\((mini|mega)[0-9]+[A-Z]\\)"))

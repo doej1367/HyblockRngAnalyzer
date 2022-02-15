@@ -6,6 +6,7 @@ import me.hyblockrnganalyzer.command.TestCommand;
 import me.hyblockrnganalyzer.eventhandler.DungeonChestEventHandler;
 import me.hyblockrnganalyzer.eventhandler.GiftEventHandler;
 import me.hyblockrnganalyzer.eventhandler.JerryBoxEventHandler;
+import me.hyblockrnganalyzer.eventhandler.NecromancySoulsEventHandler;
 import me.hyblockrnganalyzer.eventhandler.NucleusLootEventHandler;
 import me.hyblockrnganalyzer.eventhandler.TreasureChestEventHandler;
 import me.hyblockrnganalyzer.status.DungeonChestStatus;
@@ -53,6 +54,7 @@ public class Main {
 		MinecraftForge.EVENT_BUS.register(new JerryBoxEventHandler(this));
 		MinecraftForge.EVENT_BUS.register(new NucleusLootEventHandler(this));
 		MinecraftForge.EVENT_BUS.register(new GiftEventHandler(this));
+		MinecraftForge.EVENT_BUS.register(new NecromancySoulsEventHandler(this));
 		// TODO (placeholder for more event handlers)
 
 		txtDatabase.createFiles();

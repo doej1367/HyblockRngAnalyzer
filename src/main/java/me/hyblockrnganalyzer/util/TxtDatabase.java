@@ -58,6 +58,28 @@ public class TxtDatabase {
 		}
 	}
 
+	public boolean lookupDataset(String data, String fileName) {
+		File file = new File(logFolder, fileName);
+		if (file.exists()) {
+			try {
+				BufferedReader reader = new BufferedReader(
+						new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8));
+				String line;
+				while ((line = reader.readLine()) != null) {
+					if (line.isEmpty())
+						continue;
+					if (line.contains(data)) {
+						reader.close();
+						return true;
+					}
+				}
+				reader.close();
+			} catch (IOException ignored) {
+			}
+		}
+		return false;
+	}
+
 	public void addDataset(String dataset, String fileName) {
 		File file = new File(logFolder, fileName);
 		if (file.exists()) {
