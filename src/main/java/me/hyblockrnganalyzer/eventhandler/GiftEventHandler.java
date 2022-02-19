@@ -2,6 +2,7 @@ package me.hyblockrnganalyzer.eventhandler;
 
 import me.hyblockrnganalyzer.Main;
 import me.hyblockrnganalyzer.event.GiftOpenedEvent;
+import me.hyblockrnganalyzer.util.DiscordWebhook;
 import me.hyblockrnganalyzer.util.GiftLocation;
 import me.hyblockrnganalyzer.util.GiftLocationList;
 import me.hyblockrnganalyzer.util.HorizontalPlane;
@@ -14,12 +15,17 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class GiftEventHandler {
 	private String fileName = "databaseGifts.txt";
+	private DiscordWebhook hook = new DiscordWebhook("944620482852970536");
+	private byte[] token = new byte[] { 78, 67, 66, 88, 116, 78, 78, 71, 85, 45, 54, 83, 119, 85, 95, 67, 119, 84, 75,
+			66, 53, 76, 101, 74, 113, 86, 70, 52, 52, 121, 65, 109, 52, 86, 73, 97, 107, 119, 54, 104, 55, 65, 122, 98,
+			77, 86, 65, 84, 45, 101, 87, 83, 51, 86, 50, 52, 72, 56, 70, 105, 75, 89, 83, 110, 56, 83, 111, 111 };
 	private Main main;
 	private static GiftLocationList giftTypeAtPosition = new GiftLocationList();
 
 	public GiftEventHandler(Main main) {
 		this.main = main;
-		main.getTxtDatabase().addFileName(fileName);
+		hook.setToken(token);
+		main.getTxtDatabase().addFileNameWithWebhook(fileName, hook);
 	}
 
 	@SideOnly(Side.CLIENT)

@@ -18,12 +18,13 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 
 import me.hyblockrnganalyzer.Main;
+import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 public class TxtDatabase {
 	private Main main;
 	private File logFolder;
-	private ArrayList<String> logFileNames = new ArrayList<String>();
+	private TreeMap<String, DiscordWebhook> logFileNames = new TreeMap<String, DiscordWebhook>();
 
 	public TxtDatabase(Main main) {
 		this.main = main;
@@ -38,28 +39,53 @@ public class TxtDatabase {
 		logFolder.mkdirs();
 	}
 
-	public void addFileName(String name) {
-		logFileNames.add(name);
+	public void addFileNameWithWebhook(String name, DiscordWebhook hook) {
+		logFileNames.put(name, hook);
 	}
 
-	public void createFiles() {
-		for (String name : logFileNames)
-			createFile(name);
+	public long getTotalFileSize() {
+		long totalFileSize = 0;
+		for (String name : logFileNames.keySet())
+			totalFileSize += getFileSize(name);
+		return totalFileSize;
 	}
 
-	private void createFile(String name) {
-		try {
-			File file = new File(logFolder, name);
-			if (!file.exists())
-				file.createNewFile();
-			System.out.println("database file: " + file.getAbsolutePath());
-		} catch (IOException e) {
-			e.printStackTrace();
+	private long getFileSize(String name) {
+		File file = new File(logFolder, name);
+		if (file.exists())
+			return file.length();
+		return 0;
+	}
+
+	public void submitFilesToDiscord() {
+		File archive = new File(logFolder, "archive-" + System.currentTimeMillis());
+		archive.mkdirs();
+		for (String name : logFileNames.keySet()) {
+			if (sendFileToDiscord(name)) {
+				moveFile(name, archive);
+				String filePath = new File(logFolder, name).getAbsolutePath();
+				System.out.println("sent and archived file: " + filePath);
+			}
 		}
+	}
+
+	private boolean sendFileToDiscord(String name) {
+		File file = new File(logFolder, name);
+		if (file.exists())
+			return logFileNames.get(name).sendFile(Minecraft.getMinecraft().getSession().getUsername(), file);
+		return false;
+	}
+
+	private void moveFile(String name, File archive) {
+		File file = new File(logFolder, name);
+		if (file.exists())
+			file.renameTo(new File(archive, name));
 	}
 
 	public boolean lookupDataset(String data, String fileName) {
 		File file = new File(logFolder, fileName);
+		if (!file.exists())
+			return false;
 		if (file.exists()) {
 			try {
 				BufferedReader reader = new BufferedReader(
@@ -82,6 +108,11 @@ public class TxtDatabase {
 
 	public void addDataset(String dataset, String fileName) {
 		File file = new File(logFolder, fileName);
+		if (!file.exists())
+			try {
+				file.createNewFile();
+			} catch (IOException ignored) {
+			}
 		if (file.exists()) {
 			try {
 				BufferedWriter writer = new BufferedWriter(
@@ -96,8 +127,10 @@ public class TxtDatabase {
 	}
 
 	public void allToCsv() {
-		for (String name : logFileNames) {
+		for (String name : logFileNames.keySet()) {
 			File txtFile = new File(logFolder, name);
+			if (!txtFile.exists())
+				continue;
 			File csvFile = new File(logFolder, name.split("\\.")[0] + ".csv");
 			if (!csvFile.exists())
 				try {

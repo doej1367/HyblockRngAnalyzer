@@ -56,14 +56,21 @@ public class Main {
 		MinecraftForge.EVENT_BUS.register(new GiftEventHandler(this));
 		MinecraftForge.EVENT_BUS.register(new NecromancySoulsEventHandler(this));
 		// TODO (placeholder for more event handlers)
-
-		txtDatabase.createFiles();
 		System.out.println("[OK] registered events");
 		System.out.println("[OK] init Hyblock RNG Analyzer");
 	}
 
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
+		new Thread() {
+			public void run() {
+				if (txtDatabase.getTotalFileSize() > 80 * 1000) {
+					txtDatabase.submitFilesToDiscord();
+					System.out.println("[OK] uploaded files to discord");
+					System.out.println("[OK] archived uploaded files");
+				}
+			};
+		}.start();
 		System.out.println("[OK] postInit Hyblock RNG Analyzer");
 	}
 
