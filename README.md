@@ -10,12 +10,12 @@ with the goal to figure out as many drop chances as possible for the wiki.
     - `Dungeon Chest` contents
     - `Gift` rewards
     - `Soul Menu` necromancy souls
+- Automatically uploads txt files onto the discord server once over 80kB of data have been collected
 - `/open` command to open the folder containing all the database files
 - `/csv` command to create more readable csv files from the database txt files
 
 ## Discord
-- As a collection station for all the created txt files there is a [Discord server](https://discord.gg/mA3aBuPwcd)
-  - the files are being automatically uploaded and archived on startup once there has been over 80k bytes of data collected
+- A [Discord server](https://discord.gg/mA3aBuPwcd) for discussions, ideas, mod-update notifications and to collect all the txt files
 
 ## How to intall and use this mod
 - Make sure [Forge 1.8.9](https://files.minecraftforge.net/net/minecraftforge/forge/index_1.8.9.html) is installed
