@@ -60,17 +60,6 @@ public class DiscordWebhook {
 			w.close();
 			os.close();
 			int code = urlConnection.getResponseCode();
-
-			// error handling
-			System.out.println(code + ": " + urlConnection.getResponseMessage());
-			BufferedReader br = new BufferedReader(new InputStreamReader(
-					(code >= 100 && code < 400) ? urlConnection.getInputStream() : urlConnection.getErrorStream()));
-			StringBuilder sb = new StringBuilder();
-			String buffer;
-			while ((buffer = br.readLine()) != null)
-				sb.append(buffer);
-			System.out.println(sb.toString());
-
 			urlConnection.disconnect();
 			return code >= 200 && code < 300;
 		} catch (MalformedURLException ignored) {

@@ -62,15 +62,8 @@ public class Main {
 
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
-		new Thread() {
-			public void run() {
-				if (txtDatabase.getTotalFileSize() > 80 * 1000) {
-					txtDatabase.submitFilesToDiscord();
-					System.out.println("[OK] uploaded files to discord");
-					System.out.println("[OK] archived uploaded files");
-				}
-			};
-		}.start();
+		if (txtDatabase.getTotalFileSize() > 80 * 1000)
+			txtDatabase.submitFilesToDiscord();
 		System.out.println("[OK] postInit Hyblock RNG Analyzer");
 	}
 

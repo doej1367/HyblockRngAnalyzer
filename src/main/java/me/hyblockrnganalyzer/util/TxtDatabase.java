@@ -63,8 +63,7 @@ public class TxtDatabase {
 		for (String name : logFileNames.keySet()) {
 			if (sendFileToDiscord(name)) {
 				moveFile(name, archive);
-				String filePath = new File(logFolder, name).getAbsolutePath();
-				System.out.println("sent and archived file: " + filePath);
+				System.out.println("[OK] uploaded to discord and archived " + name);
 			}
 		}
 	}
