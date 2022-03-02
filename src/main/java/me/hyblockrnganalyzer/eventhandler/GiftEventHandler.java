@@ -75,8 +75,11 @@ public class GiftEventHandler {
 					} else
 						name = loot;
 					if (name != null && !name.isEmpty() && giftType >= 0)
-						main.getTxtDatabase().addDataset("_giftType:" + giftType + "," + name + ":" + count + "\n",
-								fileName);
+						main.getTxtDatabase()
+								.addDataset("_giftType:" + giftType + ",_x:" + (int) closestArmorStand.getPos().xCoord
+										+ ",_y:" + closestArmorStand.getPos().yCoord + ",_z:"
+										+ (int) closestArmorStand.getPos().zCoord + "," + name + ":" + count + "\n",
+										fileName);
 					giftTypeAtPosition.cleanup();
 				}
 			}.start();

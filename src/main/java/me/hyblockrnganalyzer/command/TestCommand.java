@@ -1,7 +1,5 @@
 package me.hyblockrnganalyzer.command;
 
-import java.io.File;
-
 import me.hyblockrnganalyzer.util.HypixelEntityExtractor;
 import me.hyblockrnganalyzer.util.StackedArmorStand;
 import net.minecraft.client.Minecraft;

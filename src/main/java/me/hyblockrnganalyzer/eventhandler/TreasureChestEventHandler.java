@@ -5,6 +5,7 @@ import java.util.Map.Entry;
 import me.hyblockrnganalyzer.Main;
 import me.hyblockrnganalyzer.event.OpenCustomChestEvent;
 import me.hyblockrnganalyzer.util.DiscordWebhook;
+import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -43,7 +44,12 @@ public class TreasureChestEventHandler {
 			sb.append(e.getKey() + ":" + e.getValue() + ",");
 		if (chestName.contains("Treasure Chest"))
 			main.getTxtDatabase().addDataset(sb.toString() + "\n", fileName0);
-		else if (chestName.contains("Loot Chest"))
-			main.getTxtDatabase().addDataset(sb.toString() + "\n", fileName1);
+		else if (chestName.contains("Loot Chest")) {
+			main.getTxtDatabase().addDataset("_lobbyAge:" + Minecraft.getMinecraft().theWorld.getTotalWorldTime()
+					+ ",_x:" + (int) Minecraft.getMinecraft().thePlayer.getPosition().getX() + ",_y:"
+					+ (int) Minecraft.getMinecraft().thePlayer.getPosition().getY() + ",_z:"
+					+ (int) Minecraft.getMinecraft().thePlayer.getPosition().getZ() + "," + sb.toString() + "\n",
+					fileName1);
+		}
 	}
 }
