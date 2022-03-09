@@ -12,19 +12,19 @@ import java.nio.charset.StandardCharsets;
 import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
 import me.hyblockrnganalyzer.Main;
-import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 public class TxtDatabase {
 	private Main main;
 	private File logFolder;
-	private TreeMap<String, DiscordWebhook> logFileNames = new TreeMap<String, DiscordWebhook>();
+	private HashSet<String> logFileNames = new HashSet<String>();
 
 	public TxtDatabase(Main main) {
 		this.main = main;
@@ -39,13 +39,13 @@ public class TxtDatabase {
 		logFolder.mkdirs();
 	}
 
-	public void addFileNameWithWebhook(String name, DiscordWebhook hook) {
-		logFileNames.put(name, hook);
+	public void addFileName(String name) {
+		logFileNames.add(name);
 	}
 
 	public long getTotalFileSize() {
 		long totalFileSize = 0;
-		for (String name : logFileNames.keySet())
+		for (String name : logFileNames)
 			totalFileSize += getFileSize(name);
 		return totalFileSize;
 	}
@@ -57,21 +57,25 @@ public class TxtDatabase {
 		return 0;
 	}
 
-	public void submitFilesToDiscord() {
-		File archive = new File(logFolder, "archive-" + System.currentTimeMillis());
-		archive.mkdirs();
-		for (String name : logFileNames.keySet()) {
-			if (sendFileToDiscord(name)) {
-				moveFile(name, archive);
-				System.out.println("[OK] uploaded to discord and archived " + name);
-			}
-		}
+	public void submitFilesToServer() {
+		new Thread() {
+			public void run() {
+				File archive = new File(logFolder, "archive-" + System.currentTimeMillis());
+				archive.mkdirs();
+				for (String name : logFileNames) {
+					if (sendFileToServer(name)) {
+						moveFile(name, archive);
+						System.out.println("[OK] uploaded to server and archived " + name);
+					}
+				}
+			};
+		}.start();
 	}
 
-	private boolean sendFileToDiscord(String name) {
+	private boolean sendFileToServer(String name) {
 		File file = new File(logFolder, name);
 		if (file.exists())
-			return logFileNames.get(name).sendFile(Minecraft.getMinecraft().getSession().getUsername(), file);
+			return main.getServerAPI().sendFile(file);
 		return false;
 	}
 
@@ -126,7 +130,7 @@ public class TxtDatabase {
 	}
 
 	public void allToCsv() {
-		for (String name : logFileNames.keySet()) {
+		for (String name : logFileNames) {
 			File txtFile = new File(logFolder, name);
 			if (!txtFile.exists())
 				continue;

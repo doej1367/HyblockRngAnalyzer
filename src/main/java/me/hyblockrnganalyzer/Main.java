@@ -12,6 +12,7 @@ import me.hyblockrnganalyzer.eventhandler.TreasureChestEventHandler;
 import me.hyblockrnganalyzer.status.DungeonChestStatus;
 import me.hyblockrnganalyzer.status.JerryBoxStatus;
 import me.hyblockrnganalyzer.status.LobbyStatus;
+import me.hyblockrnganalyzer.util.ServerAPI;
 import me.hyblockrnganalyzer.util.TxtDatabase;
 import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.common.MinecraftForge;
@@ -24,26 +25,29 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 @Mod(modid = Main.MODID, version = Main.VERSION)
 public class Main {
 	public static final String MODID = "hyblockrnganalyzer";
-	public static final String VERSION = "1.6";
+	public static final String VERSION = "1.7";
 
 	private TxtDatabase txtDatabase;
 	private LobbyStatus lobbyStatus;
 	private DungeonChestStatus dungeonChestStatus;
 	private JerryBoxStatus jerryBoxStatus;
+	private ServerAPI serverAPI;
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		txtDatabase = new TxtDatabase(this);
+		serverAPI = new ServerAPI(this);
 		lobbyStatus = new LobbyStatus();
 		dungeonChestStatus = new DungeonChestStatus();
 		jerryBoxStatus = new JerryBoxStatus();
 		txtDatabase.setFolder(event);
+		serverAPI.setUserID("testid"); // TODO generateAndSave / load userID
 		System.out.println("[OK] preInit Hyblock RNG Analyzer");
 	}
 
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
-		ClientCommandHandler.instance.registerCommand(new TestCommand());
+		ClientCommandHandler.instance.registerCommand(new TestCommand(this));
 		ClientCommandHandler.instance.registerCommand(new OpenFolderCommand(this));
 		ClientCommandHandler.instance.registerCommand(new CsvFileCreationCommand(this));
 		// converting Minecraft events into specific Hypixel SkyBlock events
@@ -63,12 +67,16 @@ public class Main {
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
 		if (txtDatabase.getTotalFileSize() > 80 * 1000)
-			txtDatabase.submitFilesToDiscord();
+			txtDatabase.submitFilesToServer();
 		System.out.println("[OK] postInit Hyblock RNG Analyzer");
 	}
 
 	public TxtDatabase getTxtDatabase() {
 		return txtDatabase;
+	}
+
+	public ServerAPI getServerAPI() {
+		return serverAPI;
 	}
 
 	public LobbyStatus getLobbyStatus() {
