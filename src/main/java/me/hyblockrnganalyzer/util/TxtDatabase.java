@@ -123,6 +123,8 @@ public class TxtDatabase {
 						System.out.println("[OK] uploaded to server and archived " + name);
 					}
 				}
+				if (archive.listFiles().length <= 0)
+					archive.delete();
 			};
 		}.start();
 	}
