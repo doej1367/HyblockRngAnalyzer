@@ -10,12 +10,15 @@ with the goal to figure out as many drop chances as possible for the wiki.
     - `Dungeon Chest` contents
     - `Gift` rewards
     - `Soul Menu` necromancy souls
-- Automatically uploads txt files onto the discord server once over 80kB of data have been collected
+- Automatically uploads txt files onto a server once over 80kB of data have been collected
 - `/open` command to open the folder containing all the database files
 - `/csv` command to create more readable csv files from the database txt files
 
+## Web API
+- A [HyblockDataAPI](https://www.wgaayocaxsjzyusrerag.tk/api) provides access to all the collected data
+
 ## Discord
-- A [Discord server](https://discord.gg/mA3aBuPwcd) for discussions, ideas, mod-update notifications and to collect all the txt files
+- A [Discord server](https://discord.gg/mA3aBuPwcd) for discussions, ideas and mod-update notifications
 
 ## How to intall and use this mod
 - Make sure [Forge 1.8.9](https://files.minecraftforge.net/net/minecraftforge/forge/index_1.8.9.html) is installed
