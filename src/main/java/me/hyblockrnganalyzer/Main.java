@@ -1,5 +1,7 @@
 package me.hyblockrnganalyzer;
 
+import java.security.SecureRandom;
+
 import me.hyblockrnganalyzer.command.CsvFileCreationCommand;
 import me.hyblockrnganalyzer.command.OpenFolderCommand;
 import me.hyblockrnganalyzer.command.TestCommand;
@@ -41,7 +43,13 @@ public class Main {
 		dungeonChestStatus = new DungeonChestStatus();
 		jerryBoxStatus = new JerryBoxStatus();
 		txtDatabase.setFolder(event);
-		serverAPI.setUserID("testid"); // TODO generateAndSave / load userID
+		txtDatabase.createSettingsFolderAndFile();
+		String userid = txtDatabase.getSetting("userid");
+		if (userid.equalsIgnoreCase("default")) {
+			userid = Integer.toHexString(new SecureRandom().nextInt());
+			txtDatabase.putSetting("userid", userid);
+		}
+		serverAPI.setUserID(userid);
 		System.out.println("[OK] preInit Hyblock RNG Analyzer");
 	}
 
