@@ -2,6 +2,7 @@ package me.hyblockrnganalyzer.wrapper;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.stream.Collectors;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
@@ -9,7 +10,6 @@ import net.minecraft.util.Vec3;
 
 public class StackedEntity {
 	private ArrayList<Entity> entities;
-	private ArrayList<ItemStack> inv;
 
 	public StackedEntity(Entity e) {
 		this.entities = new ArrayList<>();
@@ -19,8 +19,8 @@ public class StackedEntity {
 	public String getName() {
 		if (entities.size() == 1)
 			return entities.get(0).getName();
-		return entities.stream().map(a -> a.hasCustomName() ? a.getName() : "").reduce("",
-				(a, b) -> a + (a.isEmpty() || b.isEmpty() ? "" : " ") + b);
+		return entities.stream().map(a -> a.hasCustomName() ? a.getName() : "")
+				.reduce("", (a, b) -> a + (a.isEmpty() || b.isEmpty() ? "" : " ") + b).trim();
 	}
 
 	public int getStackSize() {
@@ -33,7 +33,9 @@ public class StackedEntity {
 
 	public ArrayList<ItemStack> getInv() {
 		ArrayList<ItemStack> result = new ArrayList<>();
-		entities.stream().map(a -> a.getInventory()).map(Arrays::asList).forEach(result::addAll);
+		entities.stream().filter(a -> a.getInventory() != null).map(a -> a.getInventory()).map(Arrays::asList)
+				.forEach(result::addAll);
+		result = (ArrayList<ItemStack>) result.stream().filter(a -> a != null).collect(Collectors.toList());
 		return result;
 	}
 
@@ -52,8 +54,7 @@ public class StackedEntity {
 
 	@Override
 	public String toString() {
-		// TODO
-		return "";
+		return getName() + "," + getInv();
 	}
 
 }

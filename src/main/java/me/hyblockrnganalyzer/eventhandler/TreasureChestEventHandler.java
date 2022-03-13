@@ -32,11 +32,12 @@ public class TreasureChestEventHandler {
 		if (chestName.contains("Treasure Chest"))
 			main.getTxtDatabase().addDataset(sb.toString() + "\n", fileName0);
 		else if (chestName.contains("Loot Chest")) {
-			main.getTxtDatabase().addDataset("_lobbyAge:" + Minecraft.getMinecraft().theWorld.getTotalWorldTime()
-					+ ",_x:" + Minecraft.getMinecraft().thePlayer.getPosition().getX() + ",_y:"
-					+ Minecraft.getMinecraft().thePlayer.getPosition().getY() + ",_z:"
-					+ Minecraft.getMinecraft().thePlayer.getPosition().getZ() + "," + sb.toString() + "\n",
-					fileName1);
+			main.getTxtDatabase()
+					.addDataset("_lobbyAge:" + Minecraft.getMinecraft().theWorld.getTotalWorldTime() + ",_x:"
+							+ Minecraft.getMinecraft().thePlayer.getPosition().getX() + ",_y:"
+							+ Minecraft.getMinecraft().thePlayer.getPosition().getY() + ",_z:"
+							+ Minecraft.getMinecraft().thePlayer.getPosition().getZ() + "," + sb.toString() + "\n",
+							fileName1);
 		}
 	}
 }

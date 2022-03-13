@@ -29,18 +29,22 @@ public class GiftEventHandler {
 				event.getSoundEvent().sound.getZPosF());
 		StackedEntity closestArmorStand = getClosestArmorStand(v);
 		if (event.getSoundEvent().name.equalsIgnoreCase("random.successful_hit")) {
+			System.out.println("ting: " + closestArmorStand); // TODO delete
 			if (hasGiftType(closestArmorStand)) {
 				giftTypeAtPosition
 						.add(new GiftLocation(v, getGiftType(closestArmorStand.getInv().get(0).getDisplayName())));
+				System.out.println("type: " + giftTypeAtPosition.size()); // TODO delete
 			}
 			if (hasGiftReward(closestArmorStand)) {
 				giftTypeAtPosition.add(new GiftLocation(v,
 						closestArmorStand.getName().replaceAll("\\u00a7.", "").split("!")[1].trim()));
+				System.out.println("reward: " + giftTypeAtPosition.size()); // TODO delete
 			}
 		} else if (event.getSoundEvent().name.equalsIgnoreCase("random.explode")) {
+			System.out.println("explode: " + giftTypeAtPosition.size()); // TODO delete
 			GiftLocation closestGiftLocation = null;
 			for (GiftLocation g : giftTypeAtPosition)
-				if (g != null && HorizontalPlane.distanceBetween(g.getPos(), v) < 0.1)
+				if (g != null && HorizontalPlane.distanceBetween(g.getPos(), v) <= 0.2)
 					closestGiftLocation = g;
 			final int giftType = closestGiftLocation != null ? closestGiftLocation.getGiftType() : -1;
 			final String tmp_loot = closestGiftLocation != null ? closestGiftLocation.getGiftReward() : null;
@@ -75,16 +79,19 @@ public class GiftEventHandler {
 										+ (int) closestArmorStand.getPos().zCoord + "," + name + ":" + count + ",\n",
 										fileName);
 					giftTypeAtPosition.cleanup();
+					System.out.println("cleanup: " + giftTypeAtPosition.size()); // TODO delete
 				}
 			}.start();
 		}
 	}
 
 	private StackedEntity getClosestArmorStand(Vec3 position) {
-		for (StackedEntity s : HypixelEntityExtractor.extractStackedEntities(position, 3.0d, false))
-			if (s != null && HorizontalPlane.distanceBetween(s.getPos(), position) < 0.1
+		for (StackedEntity s : HypixelEntityExtractor.extractStackedEntities(position, 4.0d, false)) {
+			System.out.println(s.getName() + " " + s.getInv()); // TODO delete
+			if (s != null && HorizontalPlane.distanceBetween(s.getPos(), position) <= 0.2
 					&& (hasGiftReward(s) || hasGiftType(s)))
 				return s;
+		}
 		return null;
 	}
 

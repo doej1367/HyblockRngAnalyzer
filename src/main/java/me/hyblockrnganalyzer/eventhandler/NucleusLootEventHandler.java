@@ -45,7 +45,7 @@ public class NucleusLootEventHandler {
 				}
 				// execute on moving into loot zone
 				StringBuilder sb = new StringBuilder();
-				for (Entry<String, Integer> e : event.getArmorStandContentsSummary().entrySet())
+				for (Entry<String, Integer> e : event.extractNucleusDrops().entrySet())
 					sb.append(e.getKey() + ":" + e.getValue() + ",");
 				main.getTxtDatabase().addDataset(sb.toString() + "\n", fileName);
 				Minecraft.getMinecraft().thePlayer

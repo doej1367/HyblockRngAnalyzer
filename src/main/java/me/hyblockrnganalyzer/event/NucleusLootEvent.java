@@ -14,10 +14,6 @@ public class NucleusLootEvent extends Event {
 			"Enchanted Book", "Quick Claw", "Gemstone Mixture", "800 HotM Experience", "Wishing Compass" };
 	private static String[] nucleusWhitelistEndsWith = { " Gemstone", " Crystal" };
 
-	public TreeMap<String, Integer> getArmorStandContentsSummary() {
-		return extractNucleusDrops();
-	}
-
 	public TreeMap<String, Integer> extractNucleusDrops() {
 		// analyze and summarize drops
 		ArrayList<StackedEntity> stackedArmorStands = HypixelEntityExtractor
