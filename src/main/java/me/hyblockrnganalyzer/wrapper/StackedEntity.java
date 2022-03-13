@@ -17,7 +17,10 @@ public class StackedEntity {
 	}
 
 	public String getName() {
-		return entities.stream().map(a -> a.getName()).reduce("", (a, b) -> a + (a.isEmpty() ? "" : " ") + b);
+		if (entities.size() == 1)
+			return entities.get(0).getName();
+		return entities.stream().map(a -> a.hasCustomName() ? a.getName() : "").reduce("",
+				(a, b) -> a + (a.isEmpty() || b.isEmpty() ? "" : " ") + b);
 	}
 
 	public int getStackSize() {
