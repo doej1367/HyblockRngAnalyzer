@@ -12,11 +12,9 @@ import java.nio.charset.StandardCharsets;
 import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map.Entry;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
@@ -27,7 +25,7 @@ public class TxtDatabase {
 	private File settingsFile;
 	private Main main;
 	private File logFolder;
-	private HashSet<String> logFileNames = new HashSet<String>();
+	private HashSet<String> logFileNames = new HashSet<>();
 
 	public TxtDatabase(Main main) {
 		this.main = main;
@@ -40,58 +38,6 @@ public class TxtDatabase {
 	public void setFolder(FMLPreInitializationEvent event) {
 		logFolder = new File(event.getModConfigurationDirectory(), Main.MODID);
 		logFolder.mkdirs();
-	}
-
-	public void createSettingsFolderAndFile() {
-		File settingsFolder = new File(logFolder, "settings");
-		settingsFolder.mkdirs();
-		settingsFile = new File(settingsFolder, "settings.txt");
-		if (!settingsFile.exists())
-			try {
-				settingsFile.createNewFile();
-			} catch (IOException ignored) {
-			}
-	}
-
-	public String getSetting(String setting) {
-		try {
-			@SuppressWarnings("resource")
-			BufferedReader reader = new BufferedReader(
-					new InputStreamReader(new FileInputStream(settingsFile), StandardCharsets.UTF_8));
-			String line;
-			while ((line = reader.readLine()) != null) {
-				if (line.isEmpty() || !line.contains(":") || line.split(":")[0].length() <= 0)
-					continue;
-				if (line.split(":")[0].equalsIgnoreCase(setting))
-					return line.split(":")[1];
-			}
-		} catch (IOException ignored) {
-		}
-		return "default";
-	}
-
-	public void putSetting(String setting, String value) {
-		HashMap<String, String> settings = new HashMap<String, String>();
-		BufferedReader reader;
-		try {
-			reader = new BufferedReader(
-					new InputStreamReader(new FileInputStream(settingsFile), StandardCharsets.UTF_8));
-			String line;
-			while ((line = reader.readLine()) != null) {
-				if (line.isEmpty() || !line.contains(":") || line.split(":")[0].length() <= 0)
-					continue;
-				settings.put(line.split(":")[0], line.split(":")[1]);
-			}
-			reader.close();
-			settings.put(setting, value);
-			BufferedWriter writer;
-			writer = new BufferedWriter(
-					new OutputStreamWriter(new FileOutputStream(settingsFile, false), StandardCharsets.UTF_8));
-			for (Entry<String, String> e : settings.entrySet())
-				writer.append(e.getKey() + ":" + e.getValue());
-			writer.close();
-		} catch (IOException ignored) {
-		}
 	}
 
 	public void addFileName(String name) {
@@ -114,6 +60,7 @@ public class TxtDatabase {
 
 	public void submitFilesToServer() {
 		new Thread() {
+			@Override
 			public void run() {
 				File archive = new File(logFolder, "archive-" + System.currentTimeMillis());
 				archive.mkdirs();
@@ -125,7 +72,7 @@ public class TxtDatabase {
 				}
 				if (archive.listFiles().length <= 0)
 					archive.delete();
-			};
+			}
 		}.start();
 	}
 
@@ -199,15 +146,15 @@ public class TxtDatabase {
 				}
 			if (txtFile.exists() && csvFile.exists()) {
 				try {
-					ArrayList<TreeMap<String, String>> data = new ArrayList<TreeMap<String, String>>();
-					TreeSet<String> items = new TreeSet<String>();
+					ArrayList<TreeMap<String, String>> data = new ArrayList<>();
+					TreeSet<String> items = new TreeSet<>();
 					BufferedReader reader = new BufferedReader(
 							new InputStreamReader(new FileInputStream(txtFile), StandardCharsets.UTF_8));
 					String line;
 					while ((line = reader.readLine()) != null) {
 						if (line.isEmpty())
 							continue;
-						TreeMap<String, String> tm = new TreeMap<String, String>();
+						TreeMap<String, String> tm = new TreeMap<>();
 						for (String s : line.split(",")) {
 							if (s.isEmpty() || !s.contains(":") || s.split(":")[1].length() <= 0)
 								continue;
@@ -217,7 +164,7 @@ public class TxtDatabase {
 						data.add(tm);
 					}
 					reader.close();
-					List<String> itemList = new ArrayList<String>(items);
+					List<String> itemList = new ArrayList<>(items);
 					Collections.sort(itemList, Collator.getInstance(Locale.ENGLISH));
 					BufferedWriter writer = new BufferedWriter(
 							new OutputStreamWriter(new FileOutputStream(csvFile, false), StandardCharsets.UTF_8));

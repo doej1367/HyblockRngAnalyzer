@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.TreeMap;
 
 import me.hyblockrnganalyzer.util.HypixelEntityExtractor;
-import me.hyblockrnganalyzer.util.StackedArmorStand;
+import me.hyblockrnganalyzer.wrapper.StackedEntity;
 import net.minecraft.util.Vec3;
 import net.minecraftforge.fml.common.eventhandler.Event;
 
@@ -20,10 +20,10 @@ public class NucleusLootEvent extends Event {
 
 	public TreeMap<String, Integer> extractNucleusDrops() {
 		// analyze and summarize drops
-		ArrayList<StackedArmorStand> stackedArmorStands = HypixelEntityExtractor
-				.extractStackedArmorStands(new Vec3(513, 105, 550), 8.0, false);
+		ArrayList<StackedEntity> stackedArmorStands = HypixelEntityExtractor
+				.extractStackedEntities(new Vec3(513, 105, 550), 8.0, false);
 		TreeMap<String, Integer> contents = new TreeMap();
-		for (StackedArmorStand drop : stackedArmorStands) {
+		for (StackedEntity drop : stackedArmorStands) {
 			String key = drop.getName().replaceAll("\\u00a7.", "");
 			int count = key.trim().isEmpty() ? (drop.getInv().size() > 0 ? drop.getInv().get(0).stackSize : 0)
 					: (key.contains(" x") ? Integer.parseInt(key.split(" x")[1]) : 1);

@@ -15,6 +15,7 @@ import me.hyblockrnganalyzer.status.DungeonChestStatus;
 import me.hyblockrnganalyzer.status.JerryBoxStatus;
 import me.hyblockrnganalyzer.status.LobbyStatus;
 import me.hyblockrnganalyzer.util.ServerAPI;
+import me.hyblockrnganalyzer.util.Settings;
 import me.hyblockrnganalyzer.util.TxtDatabase;
 import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.common.MinecraftForge;
@@ -30,6 +31,7 @@ public class Main {
 	public static final String VERSION = "1.7";
 
 	private TxtDatabase txtDatabase;
+	private Settings settings;
 	private LobbyStatus lobbyStatus;
 	private DungeonChestStatus dungeonChestStatus;
 	private JerryBoxStatus jerryBoxStatus;
@@ -38,16 +40,18 @@ public class Main {
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		txtDatabase = new TxtDatabase(this);
+		settings = new Settings(this);
 		serverAPI = new ServerAPI(this);
 		lobbyStatus = new LobbyStatus();
 		dungeonChestStatus = new DungeonChestStatus();
 		jerryBoxStatus = new JerryBoxStatus();
 		txtDatabase.setFolder(event);
-		txtDatabase.createSettingsFolderAndFile();
-		String userid = txtDatabase.getSetting("userid");
+		settings.setFolder(event);
+		settings.createSettingsFolderAndFile();
+		String userid = settings.getSetting("userid");
 		if (userid.equalsIgnoreCase("default")) {
 			userid = Integer.toHexString(new SecureRandom().nextInt());
-			txtDatabase.putSetting("userid", userid);
+			settings.putSetting("userid", userid);
 		}
 		serverAPI.setUserID(userid);
 		System.out.println("[OK] preInit Hyblock RNG Analyzer");
@@ -81,6 +85,10 @@ public class Main {
 
 	public TxtDatabase getTxtDatabase() {
 		return txtDatabase;
+	}
+
+	public Settings getSettings() {
+		return settings;
 	}
 
 	public ServerAPI getServerAPI() {

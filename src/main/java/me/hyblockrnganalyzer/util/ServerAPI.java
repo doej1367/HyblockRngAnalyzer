@@ -51,7 +51,7 @@ public class ServerAPI {
 			addSimpleFormData("username", Minecraft.getMinecraft().getSession().getUsername(), body, boundary);
 			addSimpleFormData("uuid", Minecraft.getMinecraft().getSession().getPlayerID(), body, boundary);
 			addSimpleFormData("userID", userID, body, boundary);
-			addSimpleFormData("modversion", main.VERSION, body, boundary);
+			addSimpleFormData("modversion", Main.VERSION, body, boundary);
 			addFileData("file", file.getName(), Files.readAllBytes(file.toPath()), body, directOutput, boundary);
 			addCloseDelimiter(body, boundary);
 			int code = con.getResponseCode();

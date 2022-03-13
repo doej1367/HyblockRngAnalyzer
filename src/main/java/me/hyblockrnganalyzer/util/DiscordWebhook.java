@@ -17,7 +17,7 @@ import javax.net.ssl.HttpsURLConnection;
  * secret token and it is replaced by the Server API I've marked it as
  * deprecated. So that it is still there, if someone wants to use it for another
  * project, but it's also clear, that it isn't used in this project anymore.
- * 
+ *
  * @author User
  */
 @Deprecated

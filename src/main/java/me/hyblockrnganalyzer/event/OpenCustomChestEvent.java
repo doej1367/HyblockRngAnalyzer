@@ -62,7 +62,7 @@ public class OpenCustomChestEvent extends Event {
 
 	public ArrayList<String> getNecromancySouls() {
 		String chestName = getChestTitle().getUnformattedText().replaceAll("\\u00a7.", "");
-		ArrayList<String> contents = new ArrayList<String>();
+		ArrayList<String> contents = new ArrayList<>();
 		if (!chestName.contains("Soul Menu"))
 			return contents;
 		ArrayList<ItemStack> items = new ArrayList();

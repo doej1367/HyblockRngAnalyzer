@@ -2,7 +2,7 @@ package me.hyblockrnganalyzer.command;
 
 import me.hyblockrnganalyzer.Main;
 import me.hyblockrnganalyzer.util.HypixelEntityExtractor;
-import me.hyblockrnganalyzer.util.StackedArmorStand;
+import me.hyblockrnganalyzer.wrapper.StackedEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
@@ -31,8 +31,8 @@ public class TestCommand extends CommandBase {
 		// TODO (placeholder for testing something)
 		main.getTxtDatabase().submitFilesToServer(); // TODO delete this
 
-		for (StackedArmorStand s : HypixelEntityExtractor
-				.extractStackedArmorStands(Minecraft.getMinecraft().thePlayer.getPositionVector(), 5, false))
+		for (StackedEntity s : HypixelEntityExtractor
+				.extractStackedEntities(Minecraft.getMinecraft().thePlayer.getPositionVector(), 5, false))
 			if (s.getInv().size() > 0)
 				System.out.println(s.getInv().get(0).getDisplayName() + " " + s.getInv().get(0).getTagCompound());
 		Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText("TestCommand"));
