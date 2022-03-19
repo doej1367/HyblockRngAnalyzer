@@ -23,7 +23,7 @@ public class NucleusLootEvent extends Event {
 			String key = drop.getName().replaceAll("\\u00a7.", "");
 			int count = key.trim().isEmpty() ? (drop.getInv().size() > 0 ? drop.getInv().get(0).stackSize : 0)
 					: (key.contains(" x") ? Integer.parseInt(key.split(" x")[1]) : 1);
-			key = key.trim().isEmpty()
+			key = (key.trim().isEmpty() || key.trim().equalsIgnoreCase("Armor Stand"))
 					? (drop.getInv().size() > 0 ? drop.getInv().get(0).getDisplayName().replaceAll("\\u00a7.", "") : "")
 					: (key.contains(" x") ? key.split(" x")[0] : key);
 			if (isWhitelisted(key))
