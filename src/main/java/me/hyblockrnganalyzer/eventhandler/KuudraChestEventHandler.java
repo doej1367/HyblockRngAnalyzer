@@ -35,8 +35,8 @@ public class KuudraChestEventHandler {
 		int percentage = main.getKuudraChestStatus().getPercentage();
 		int tokens = main.getKuudraChestStatus().getTokens();
 		int damage = main.getKuudraChestStatus().getDamage();
-		sb.append("_chestType:" + chestType + ",_tierType:" + tierType + ",_percentage:" + percentage + ","
-				+ ",_tokens:" + tokens + "," + ",_damage:" + damage + ",");
+		sb.append("_chestType:" + chestType + ",_tierType:" + tierType + ",_percentage:" + percentage + ",_tokens:"
+				+ tokens + ",_damage:" + damage + ",");
 		for (Entry e : event.getChestContentsSummary().entrySet())
 			sb.append(e.getKey() + ":" + e.getValue() + ",");
 		main.getKuudraChestStatus().setStatusSaved(chestType);

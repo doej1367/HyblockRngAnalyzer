@@ -53,11 +53,11 @@ public class HypixelEventHandler {
 			main.getKuudraChestStatus().resetKuudraChestStatus();
 		else if (plainText.startsWith("[BOSS] Kuudra"))
 			main.getKuudraChestStatus().setHotKuudraTier();
-		else if (plainText.trim().matches("Percentage Complete: "))
+		else if (plainText.trim().startsWith("Percentage Complete: "))
 			main.getKuudraChestStatus().setPercentage(Integer.parseInt(plainText.trim().split(": ")[1].split("%")[0]));
-		else if (plainText.trim().matches("Tokens Earned: "))
+		else if (plainText.trim().startsWith("Tokens Earned: "))
 			main.getKuudraChestStatus().setTokens(Integer.parseInt(plainText.trim().split(": ")[1]));
-		else if (plainText.trim().matches("Damage To Kuudra: "))
+		else if (plainText.trim().startsWith("Damage To Kuudra: "))
 			main.getKuudraChestStatus().setDamage(plainText.trim().split(": ")[1]);
 		else if (plainText.startsWith("You've earned a Crystal Loot Bundle!"))
 			new Thread() {

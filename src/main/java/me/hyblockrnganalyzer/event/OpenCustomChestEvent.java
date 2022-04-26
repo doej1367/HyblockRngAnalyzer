@@ -39,7 +39,7 @@ public class OpenCustomChestEvent extends Event {
 				String tmp = key.contains("Mithril Powder") ? "Mithril Powder" : "Gemstone Powder";
 				count = Integer.parseInt(key.replaceAll(tmp, "").trim());
 				key = tmp;
-			} else if (key.contains("Enchanted Book")) { // TODO adapt for Experiments (if 'Item Reward' -> [2], c=0.5)
+			} else if (key.contains("Enchanted Book") || key.contains("Attribute Shard")) { // TODO adapt for Experiments (if 'Item Reward' -> [2], c=0.5)
 				key = item.getTagCompound().getCompoundTag("display").getTagList("Lore", 8).get(0).toString()
 						.replaceAll("\\u00a7.", "").replaceAll("\"", "");
 			} else if (key.contains("Open Reward Chest")) {
