@@ -9,6 +9,11 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+/**
+ * Note: Loot display was moved from chest GUI to chat
+ *
+ */
+@Deprecated
 public class TreasureChestEventHandler {
 	private String fileName0 = "databaseTreasureChest.txt";
 	private String fileName1 = "databaseLootChest.txt";

@@ -49,6 +49,16 @@ public class HypixelEventHandler {
 			main.getDungeonChestStatus().resetDungeonChestStatus(plainText.split("Floor ")[1], true);
 		else if (plainText.trim().matches("Team Score: [0-9]+ [\\(][SABCD][+]?[\\)].*"))
 			main.getDungeonChestStatus().setScore(Integer.parseInt(plainText.trim().split(" ")[2]));
+		else if (plainText.startsWith("[NPC] Elle: Okay adventurers, I will go and fish up Kuudra!"))
+			main.getKuudraChestStatus().resetKuudraChestStatus();
+		else if (plainText.startsWith("[BOSS] Kuudra"))
+			main.getKuudraChestStatus().setHotKuudraTier();
+		else if (plainText.trim().matches("Percentage Complete: "))
+			main.getKuudraChestStatus().setPercentage(Integer.parseInt(plainText.trim().split(": ")[1].split("%")[0]));
+		else if (plainText.trim().matches("Tokens Earned: "))
+			main.getKuudraChestStatus().setTokens(Integer.parseInt(plainText.trim().split(": ")[1]));
+		else if (plainText.trim().matches("Damage To Kuudra: "))
+			main.getKuudraChestStatus().setDamage(plainText.trim().split(": ")[1]);
 		else if (plainText.startsWith("You've earned a Crystal Loot Bundle!"))
 			new Thread() {
 				@Override

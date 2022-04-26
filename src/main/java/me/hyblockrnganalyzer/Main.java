@@ -8,11 +8,13 @@ import me.hyblockrnganalyzer.command.TestCommand;
 import me.hyblockrnganalyzer.eventhandler.DungeonChestEventHandler;
 import me.hyblockrnganalyzer.eventhandler.GiftEventHandler;
 import me.hyblockrnganalyzer.eventhandler.JerryBoxEventHandler;
+import me.hyblockrnganalyzer.eventhandler.KuudraChestEventHandler;
 import me.hyblockrnganalyzer.eventhandler.NecromancySoulsEventHandler;
 import me.hyblockrnganalyzer.eventhandler.NucleusLootEventHandler;
 import me.hyblockrnganalyzer.eventhandler.TreasureChestEventHandler;
 import me.hyblockrnganalyzer.status.DungeonChestStatus;
 import me.hyblockrnganalyzer.status.JerryBoxStatus;
+import me.hyblockrnganalyzer.status.KuudraChestStatus;
 import me.hyblockrnganalyzer.status.LobbyStatus;
 import me.hyblockrnganalyzer.util.ServerAPI;
 import me.hyblockrnganalyzer.util.Settings;
@@ -28,12 +30,13 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 @Mod(modid = Main.MODID, version = Main.VERSION)
 public class Main {
 	public static final String MODID = "hyblockrnganalyzer";
-	public static final String VERSION = "1.7";
+	public static final String VERSION = "1.7.3";
 
 	private TxtDatabase txtDatabase;
 	private Settings settings;
 	private LobbyStatus lobbyStatus;
 	private DungeonChestStatus dungeonChestStatus;
+	private KuudraChestStatus kuudraChestStatus;
 	private JerryBoxStatus jerryBoxStatus;
 	private ServerAPI serverAPI;
 
@@ -44,6 +47,7 @@ public class Main {
 		serverAPI = new ServerAPI(this);
 		lobbyStatus = new LobbyStatus();
 		dungeonChestStatus = new DungeonChestStatus();
+		kuudraChestStatus = new KuudraChestStatus();
 		jerryBoxStatus = new JerryBoxStatus();
 		txtDatabase.setFolder(event);
 		settings.setFolder(event);
@@ -65,8 +69,9 @@ public class Main {
 		// converting Minecraft events into specific Hypixel SkyBlock events
 		MinecraftForge.EVENT_BUS.register(new HypixelEventHandler(this));
 		// handling Hypixel events
-		MinecraftForge.EVENT_BUS.register(new TreasureChestEventHandler(this));
+		// MinecraftForge.EVENT_BUS.register(new TreasureChestEventHandler(this));
 		MinecraftForge.EVENT_BUS.register(new DungeonChestEventHandler(this));
+		MinecraftForge.EVENT_BUS.register(new KuudraChestEventHandler(this));
 		MinecraftForge.EVENT_BUS.register(new JerryBoxEventHandler(this));
 		MinecraftForge.EVENT_BUS.register(new NucleusLootEventHandler(this));
 		MinecraftForge.EVENT_BUS.register(new GiftEventHandler(this));
@@ -101,6 +106,10 @@ public class Main {
 
 	public DungeonChestStatus getDungeonChestStatus() {
 		return dungeonChestStatus;
+	}
+
+	public KuudraChestStatus getKuudraChestStatus() {
+		return kuudraChestStatus;
 	}
 
 	public JerryBoxStatus getJerryBoxStatus() {
