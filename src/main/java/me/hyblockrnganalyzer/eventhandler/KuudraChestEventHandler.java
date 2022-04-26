@@ -21,7 +21,7 @@ public class KuudraChestEventHandler {
 	@SubscribeEvent
 	public void onOpenCustomChest(OpenCustomChestEvent event) {
 		String chestName = event.getChestTitle().getUnformattedText().replaceAll("\\u00a7.", "");
-		String[] chestTypes = { "Free", "Paied" };
+		String[] chestTypes = { "Free", "Paid" };
 		int chestType = -1;
 		for (int i = 0; i < chestTypes.length; i++)
 			chestType = chestName.contains(chestTypes[i] + " Chest") ? i : chestType;
