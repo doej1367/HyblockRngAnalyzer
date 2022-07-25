@@ -16,6 +16,7 @@ with the goal to figure out as many drop chances as possible for the wiki.
 
 ## Web API
 - A [HyblockDataAPI](https://www.wgaayocaxsjzyusrerag.tk/api) provides access to all the collected data
+- Update 2022-07-25: deleted the server after 5 months of collecting data. Data got exported and posted on the Discord server (data is anoymized).
 
 ## Discord
 - A [Discord server](https://discord.gg/mA3aBuPwcd) for discussions, ideas and mod-update notifications
